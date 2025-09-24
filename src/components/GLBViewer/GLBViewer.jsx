@@ -104,6 +104,24 @@ const GLBViewer = forwardRef(({
     return effectiveBaseZoom * multiplier;
   };
 
+  const resolveModelUrl = (path) => {
+    if (!path) return null;
+
+    if (/^(https?:)?\/\//.test(path)) {
+      return path;
+    }
+
+    const publicUrl = process.env.PUBLIC_URL || '/';
+    try {
+      const base = new URL(publicUrl.endsWith('/') ? publicUrl : `${publicUrl}/`, window.location.origin);
+      const sanitizedPath = path.replace(/^\.\/+/, '');
+      return new URL(sanitizedPath, base).toString();
+    } catch (error) {
+      console.error('❌ Failed to resolve model URL from path:', path, error);
+      return path;
+    }
+  };
+
   useEffect(() => {
     if (viewerRef.current) return;
 
@@ -347,7 +365,7 @@ const GLBViewer = forwardRef(({
 
       const addEdgeLines = (model) => {
         const edgeLines = [];
-        
+
         model.traverse(child => {
           if (child.isMesh && child.material) {
             const materials = Array.isArray(child.material) ? child.material : [child.material];
@@ -383,8 +401,36 @@ const GLBViewer = forwardRef(({
             });
           }
         });
-        
+
         return edgeLines;
+      };
+
+      const addColoredEdges = (model) => {
+        model.traverse(child => {
+          if (child.isMesh && child.userData.materialType) {
+            const materialType = child.userData.materialType;
+            const colorConfig = colorMaterialsData[materialType];
+
+            if (colorConfig) {
+              const edges = new EdgesGeometry(child.geometry);
+              const edgeMaterial = new LineBasicMaterial({
+                color: colorConfig.edge,
+                linewidth: 1
+              });
+
+              const edgeLine = new LineSegments(edges, edgeMaterial);
+              edgeLine.position.copy(child.position);
+              edgeLine.rotation.copy(child.rotation);
+              edgeLine.scale.copy(child.scale);
+
+              child.userData.edgeLine = edgeLine;
+              edgeLine.userData.parentMesh = child;
+              edgeLine.userData.materialType = materialType;
+
+              child.parent.add(edgeLine);
+            }
+          }
+        });
       };
 
       const getMaterialTypeFromColor = (color) => {
@@ -393,179 +439,199 @@ const GLBViewer = forwardRef(({
         return materialName ? materialName.toLowerCase() : null;
       };
 
-      const modelCache = new Map();
-      const loadModel = (modelPath) => {
-        if (modelCache.has(modelPath)) {
-          const cachedModel = modelCache.get(modelPath).clone();
-          // ... use cached model
-          return;
-        }
-        setIsLoading(true);
-        setLoadingProgress(0);
-        onLoadingChange(true);
+        const modelCache = new Map();
 
-        const startTime = performance.now();
-        let downloadSize = 0;
+        const cloneModelForScene = (sourceScene) => {
+          const clonedScene = sourceScene.clone(true);
 
-        // Cleanup existing model
-        if (model) {
-          scene.remove(model);
-          model.traverse(child => {
-            if (child.isMesh) {
-              if (child.geometry) child.geometry.dispose();
-              if (child.material) {
-                const materials = Array.isArray(child.material) ? child.material : [child.material];
-                materials.forEach(mat => mat.dispose());
+          clonedScene.traverse(node => {
+            if (node.isMesh) {
+              node.geometry = node.geometry.clone();
+
+              if (Array.isArray(node.material)) {
+                node.material = node.material.map(material => material.clone());
+              } else if (node.material) {
+                node.material = node.material.clone();
               }
             }
           });
-          model = null;
-        }
 
-        gltfLoader.load(
-          modelPath,
-          (gltf) => {
-            const loadTime = performance.now() - startTime;
-            
-            // Better Draco detection method
-            let dracoUsed = false;
-            let totalVertices = 0;
-            let dracoBuffers = 0;
-            
-            // Check if the GLB file contains Draco extension
-            if (gltf.parser && gltf.parser.json) {
-              const json = gltf.parser.json;
-              if (json.extensionsUsed && json.extensionsUsed.includes('KHR_draco_mesh_compression')) {
-                dracoUsed = true;
-              }
+          return clonedScene;
+        };
+
+        const prepareModelForScene = (sourceScene, loadMeta = {}) => {
+          model = cloneModelForScene(sourceScene);
+          scene.add(model);
+
+          if (withEdgesLines) {
+            addEdgeLines(model);
+          }
+
+          addColoredEdges(model);
+          initClippingPlanes();
+
+          boundingBox.setFromObject(model);
+          const center = boundingBox.getCenter(new Vector3());
+          clippingState.x.position = center.x;
+          clippingState.y.position = center.y;
+          clippingState.z.position = center.z;
+
+          collectColorData();
+          resetCamera();
+
+          setLoadingProgress(100);
+          setIsLoading(false);
+          onLoadingChange(false);
+          onModelLoad({
+            boundingBox: boundingBox,
+            center: center,
+            colorData: colorFilterData,
+            loadTime: loadMeta.loadTime ?? 0,
+            dracoUsed: loadMeta.dracoUsed ?? false,
+            downloadSize: loadMeta.downloadSize ?? 0,
+            vertices: loadMeta.vertices ?? 0,
+            fromCache: loadMeta.fromCache ?? false
+          });
+
+          triggerRender();
+        };
+
+        const loadModel = (modelPath) => {
+          const resolvedModelPath = resolveModelUrl(modelPath);
+
+          if (!resolvedModelPath) {
+            console.error('❌ Error loading model: Invalid model path provided', modelPath);
+            return;
+          }
+
+          if (modelCache.has(resolvedModelPath)) {
+            const cachedEntry = modelCache.get(resolvedModelPath);
+
+            if (cachedEntry?.scene) {
+              const cachedMeta = cachedEntry.meta || {};
+              prepareModelForScene(cachedEntry.scene, { ...cachedMeta, fromCache: true });
+              return;
             }
-            
-            // Alternative detection: check geometries for Draco attributes
-            gltf.scene.traverse(child => {
-              if (child.isMesh && child.geometry) {
-                totalVertices += child.geometry.attributes.position ? child.geometry.attributes.position.count : 0;
-                
-                // Check for Draco-specific properties
-                if (child.geometry.userData && child.geometry.userData.draco) {
-                  dracoUsed = true;
-                  dracoBuffers++;
-                }
-                
-                // Check for compressed attributes (another indication)
-                if (child.geometry.attributes.position && child.geometry.attributes.position.isCompressed) {
-                  dracoUsed = true;
-                }
-              }
-            });
-                     
-            // Process materials (rest of your existing code...)
-            gltf.scene.traverse(child => {
-              if (child.isMesh) {
-                const originalColor = child.material.color;
-                const materialType = getMaterialTypeFromColor(originalColor);
-                
-                if (materialType && colorMaterialsData[materialType]) {
-                  child.material = new MeshBasicMaterial({ 
-                    color: colorMaterialsData[materialType].face,
-                    transparent: false,
-                    opacity: 1.0,
-                    alphaTest: 0,
-                    depthTest: true,
-                    depthWrite: true,
-                    side: FrontSide,
-                  });
-                  child.userData.materialType = materialType;
-                } else {
-                  child.material = new MeshBasicMaterial({ 
-                    color: originalColor,
-                    transparent: false,
-                    opacity: 1.0,
-                    alphaTest: 0,
-                    depthTest: true,
-                    depthWrite: true,
-                    side: FrontSide,
-                  });
-                }
-              }
-            });
 
-            const addColoredEdges = (model) => {
-              model.traverse(child => {
-                if (child.isMesh && child.userData.materialType) {
-                  const materialType = child.userData.materialType;
-                  const colorConfig = colorMaterialsData[materialType];
-                  
-                  if (colorConfig) {
-                    const edges = new EdgesGeometry(child.geometry);
-                    const edgeMaterial = new LineBasicMaterial({ 
-                      color: colorConfig.edge,
-                      linewidth: 1
-                    });
-                    
-                    const edgeLine = new LineSegments(edges, edgeMaterial);
-                    edgeLine.position.copy(child.position);
-                    edgeLine.rotation.copy(child.rotation);
-                    edgeLine.scale.copy(child.scale);
-                    
-                    child.userData.edgeLine = edgeLine;
-                    edgeLine.userData.parentMesh = child;
-                    edgeLine.userData.materialType = materialType;
-                    
-                    child.parent.add(edgeLine);
+            modelCache.delete(resolvedModelPath);
+          }
+
+          setIsLoading(true);
+          setLoadingProgress(0);
+          onLoadingChange(true);
+
+          const startTime = performance.now();
+          let downloadSize = 0;
+
+          // Cleanup existing model
+          if (model) {
+            scene.remove(model);
+            model.traverse(child => {
+              if (child.isMesh) {
+                if (child.geometry) child.geometry.dispose();
+                if (child.material) {
+                  const materials = Array.isArray(child.material) ? child.material : [child.material];
+                  materials.forEach(mat => mat.dispose());
+                }
+              }
+            });
+            model = null;
+          }
+
+          gltfLoader.load(
+            resolvedModelPath,
+            (gltf) => {
+              const loadTime = performance.now() - startTime;
+
+              // Better Draco detection method
+              let dracoUsed = false;
+              let totalVertices = 0;
+              // Check if the GLB file contains Draco extension
+              if (gltf.parser && gltf.parser.json) {
+                const json = gltf.parser.json;
+                if (json.extensionsUsed && json.extensionsUsed.includes('KHR_draco_mesh_compression')) {
+                  dracoUsed = true;
+                }
+              }
+
+              // Alternative detection: check geometries for Draco attributes
+              gltf.scene.traverse(child => {
+                if (child.isMesh && child.geometry) {
+                  totalVertices += child.geometry.attributes.position ? child.geometry.attributes.position.count : 0;
+
+                  // Check for Draco-specific properties
+                  if (child.geometry.userData && child.geometry.userData.draco) {
+                    dracoUsed = true;
+                  }
+
+                  // Check for compressed attributes (another indication)
+                  if (child.geometry.attributes.position && child.geometry.attributes.position.isCompressed) {
+                    dracoUsed = true;
                   }
                 }
-              });  
-            };
-              
-            model = gltf.scene;
-            scene.add(model);
-            
-            if (withEdgesLines) {
-              addEdgeLines(model);
-            }
-            
-            initClippingPlanes();
-            
-            boundingBox.setFromObject(model);
-            const center = boundingBox.getCenter(new Vector3());
-            clippingState.x.position = center.x;
-            clippingState.y.position = center.y;
-            clippingState.z.position = center.z;
-            
-            addColoredEdges(gltf.scene);
-            collectColorData();
-            resetCamera();
-            
-            setIsLoading(false);
-            onLoadingChange(false);
-            onModelLoad({
-              boundingBox: boundingBox,
-              center: center,
-              colorData: colorFilterData,
-              loadTime: loadTime,
-              dracoUsed: dracoUsed,
-              downloadSize: downloadSize,
-              vertices: totalVertices
-            });
-            
-            triggerRender();
-          },
-          (progress) => {
-            // Capture download size
-            if (progress.total > 0) {
-              downloadSize = progress.total;
-            }
-            
-            const percentage = progress.total > 0 ? (progress.loaded / progress.total) * 100 : 0;
-            setLoadingProgress(percentage);
+              });
 
-          },
-          (error) => {
-            console.error('❌ Error loading model:', error);
-            setIsLoading(false);
-            onLoadingChange(false);
-          }
-        );
+              // Process materials (rest of your existing code...)
+              gltf.scene.traverse(child => {
+                if (child.isMesh) {
+                  const originalColor = child.material.color;
+                  const materialType = getMaterialTypeFromColor(originalColor);
+
+                  if (materialType && colorMaterialsData[materialType]) {
+                    child.material = new MeshBasicMaterial({
+                      color: colorMaterialsData[materialType].face,
+                      transparent: false,
+                      opacity: 1.0,
+                      alphaTest: 0,
+                      depthTest: true,
+                      depthWrite: true,
+                      side: FrontSide,
+                    });
+                    child.userData.materialType = materialType;
+                  } else {
+                    child.material = new MeshBasicMaterial({
+                      color: originalColor,
+                      transparent: false,
+                      opacity: 1.0,
+                      alphaTest: 0,
+                      depthTest: true,
+                      depthWrite: true,
+                      side: FrontSide,
+                    });
+                  }
+                }
+              });
+
+              const modelMeta = {
+                loadTime,
+                dracoUsed,
+                downloadSize,
+                vertices: totalVertices
+              };
+
+              prepareModelForScene(gltf.scene, modelMeta);
+
+              modelCache.set(resolvedModelPath, {
+                scene: cloneModelForScene(gltf.scene),
+                meta: modelMeta
+              });
+            },
+            (progress) => {
+              // Capture download size
+              if (progress.total > 0) {
+                downloadSize = progress.total;
+              }
+
+              const percentage = progress.total > 0 ? (progress.loaded / progress.total) * 100 : 0;
+              setLoadingProgress(percentage);
+
+            },
+            (error) => {
+              console.error(`❌ Error loading model from ${resolvedModelPath}:`, error);
+              setIsLoading(false);
+              onLoadingChange(false);
+            }
+          );
       };
 
       const handleResize = () => {
