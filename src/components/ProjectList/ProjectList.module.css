@@ -1,87 +1,187 @@
-/* components/ProjectList/ProjectList.module.css */
 .container {
-  --grid-columns: 28px 1.5fr 2fr 1.5fr 1fr 28px 28px 60px;
-  width: 100%;
-  height: 100%;
-  background-color: white;
   display: flex;
   flex-direction: column;
-}
-
-.headerRow {
-  display: grid;
-  grid-template-columns: var(--grid-columns); /* Year, Name, Architect, Location, Category, m2, kg/m2, kg CO2/m2 */
+  height: 100%;
   gap: 12px;
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-  z-index: 1;
 }
 
-.headerCell {
-  cursor: pointer;
-  user-select: none;
+.controls {
   display: flex;
   align-items: center;
-  padding: 4px 0px;
-  border-radius: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sortLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sortSelect {
+  border: 1px solid black;
+  background: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
+.sortDirectionButton {
+  border: 1px solid black;
+  background: white;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sortDirectionButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sortDirectionButton:not(:disabled):hover {
+  background-color: black;
+  color: white;
 }
 
 .projectList {
   flex: 1;
   overflow-y: auto;
-  /* Hide scrollbar in Webkit browsers */
-  -ms-overflow-style: none; /* IE/Edge */
-}
-
-.projectList::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
 }
 
 .projectItem {
-  display: grid;
-  grid-template-columns: var(--grid-columns);
-  gap: 12px;
-  align-items: center;
-  padding: 4px 0px;
+  border: 1px solid black;
+  padding: 8px 12px;
+  background-color: white;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.expanded {
+  border-color: currentColor;
+}
+
+.clickable {
   cursor: pointer;
 }
 
-.hasModels:hover {
+.clickable:hover {
   background-color: black;
   color: white;
 }
 
-.projectCell {
+.disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.selected {
+  background-color: black;
+  color: white;
+}
+
+.projectSummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 24px;
+}
+
+.summaryText {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.projectName {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.projectLeft {
-  display: contents;
+.projectYear {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
 }
 
-.projectRight {
-  display: contents;
+.summaryActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.comma {
-  display: none;
+.unavailable {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-.year {
-  text-align: right;
-  justify-self: end;
+.expandButton {
+  border: 1px solid currentColor;
+  background: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.separator {
-  border: none;
-  border-top: 1px solid black;
-  margin: 0;
+.expandButton:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.selected .expandButton,
+.clickable:hover .expandButton {
+  border-color: white;
+}
+
+.selected .expandButton:hover,
+.clickable:hover .expandButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.projectDetails {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid currentColor;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  font-size: 12px;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detailLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+}
+
+.detailValue {
+  word-break: break-word;
 }
 
 .emptyState {
@@ -89,36 +189,20 @@
   padding: 60px 20px;
 }
 
-.m2,
-.kgPerM2,
-.kgCO2PerM2,
-.rightAlignedCell  {
-  text-align: right;
-  display: block;
-  width: 100%;
-}
-
-img {
-  width: 100%;
-}
-
-.projectCell span {
-  display: block;
-}
-
-@media (max-width: 1200px) {
-  .container {
-    --grid-columns: 40px 2fr 2fr 1.5fr 1fr 40px 40px 70px;
-  }
+.srOnly {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 
 @media (max-width: 992px) {
   .container {
-    --grid-columns: 32px 2fr 2fr 1.4fr 1fr 36px 36px 64px;
-  }
-
-  .headerRow {
-    display: none;
+    gap: 16px;
   }
 
   .projectList {
@@ -126,58 +210,21 @@ img {
   }
 
   .projectItem {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 12px 0;
+    padding: 10px 12px;
   }
 
-  .hasModels:hover {
-    background-color: inherit;
-    color: inherit;
-  }
-
-  .projectCell {
-    white-space: normal;
-  }
-
-  .projectCell span {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    font-size: 11px;
-    text-transform: none;
-  }
-
-  .projectCell span::before {
-    content: attr(data-label);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .year {
-    justify-self: start;
-    text-align: left;
-  }
-
-  .m2,
-  .kgPerM2,
-  .kgCO2PerM2 {
-    text-align: left;
-  }
-
-  .separator {
-    margin: 12px 0;
-  }
-}
-
-@media (max-width: 600px) {
-  .projectCell span {
+  .projectSummary {
+    flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 6px;
   }
 
-  .projectCell span::before {
-    min-width: 120px;
+  .summaryText {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .projectName {
+    white-space: normal;
   }
 }
