@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>three.js webgl - GLB Loader with Static Isometric View, Edge Lines, Multi-Axis Clipping Planes, and Mesh Color Filter Tool</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="main.css">
+    <style>
+      body { color: #444; }
+      a { color: #08f; }
+    </style>
+  </head>
+  <body>
+    <div id="info">
+      <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>
+      - GLB Loader with Static Isometric View, Edge Lines, Multi-Axis Clipping Planes, and Mesh Color Filter Tool
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../build/three.module.js",
+          "three/addons/": "./jsm/"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from 'three';
+      import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+      // OrbitControls NOT imported - we want a static view!
+      import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+      // Color label map: hex code (lowercase) -> display name
+      const COLOR_NAME_MAP = {
+        "#00bda6": "Biosourced"
+      };
+
+      async function getModelFileList() {
+        const assetsListUrl = 'assets/';
+        let fileList = {};
+        try {
+          const response = await fetch(assetsListUrl);
+          if (!response.ok) throw new Error('Could not fetch asset directory listing');
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          [...doc.querySelectorAll('a')].forEach(a => {
+            const href = a.getAttribute('href');
+            if (href && href.match(/\.glb$/i)) {
+              const name = decodeURIComponent(href.split('/').pop());
+              fileList[name] = assetsListUrl + href;
+            }
+          });
+        } catch (e) {
+          fileList = { 'My Model': 'assets/your_model.glb' };
+        }
+        return fileList;
+      }
+
+      let container, progressBarDiv;
+      let camera, scene, renderer, gui, guiData;
+      let model;
+      let edgeLines = [];
+      let modelFileList = {};
+      let bboxMin = new THREE.Vector3(-200, -200, -200); // default if no model yet
+      let bboxMax = new THREE.Vector3(200, 200, 200); // default if no model yet
+
+      // For color filter tool
+      let colorFilterData = {};
+      let colorFilterFolder = null;
+
+      // Three clipping planes, one for each axis
+      let clippingPlanes = [
+        new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0), // X
+        new THREE.Plane(new THREE.Vector3(0, -1, 0), 0), // Y
+        new THREE.Plane(new THREE.Vector3(0, 0, -1), 0)  // Z
+      ];
+
+      (async function init() {
+        container = document.createElement('div');
+        document.body.appendChild(container);
+
+        // Dynamically get all .glb files in assets
+        modelFileList = await getModelFileList();
+
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+        // Set in isometric (axonometric) direction: x = -1, y = 1, z = 1
+        camera.position.set(-1, 1, 1).normalize();
+        // Distance will be set when model loads
+
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setAnimationLoop(animate);
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.localClippingEnabled = true;
+        container.appendChild(renderer.domElement);
+
+        const pmremGenerator = new THREE.PMREMGenerator(renderer);
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xdeebed);
+        scene.environment = pmremGenerator.fromScene(new RoomEnvironment()).texture;
+
+        // No OrbitControls: static view
+
+        guiData = {
+          modelFileName: Object.values(modelFileList)[0],
+          flatColors: false,
+          displayEdges: false,
+          // Clipping controls for each axis, default to false
+          clippingX: false,
+          clippingXVal: 0,
+          clippingY: false,
+          clippingYVal: 0,
+          clippingZ: false,
+          clippingZVal: 0
+        };
+
+        window.addEventListener('resize', onWindowResize);
+
+        progressBarDiv = document.createElement('div');
+        progressBarDiv.innerText = 'Loading...';
+        progressBarDiv.style.fontSize = '3em';
+        progressBarDiv.style.color = '#888';
+        progressBarDiv.style.display = 'block';
+        progressBarDiv.style.position = 'absolute';
+        progressBarDiv.style.top = '50%';
+        progressBarDiv.style.width = '100%';
+        progressBarDiv.style.textAlign = 'center';
+
+        reloadObject(true);
+      })();
+
+      function reloadObject(resetCamera) {
+        if (model) scene.remove(model);
+        model = null;
+        removeEdgeLines();
+        colorFilterData = {};
+        colorFilterFolder = null;
+
+        updateProgressBar(0);
+        showProgressBar();
+
+        const loader = new GLTFLoader();
+        loader.load(guiData.modelFileName, function (gltf) {
+          model = gltf.scene;
+
+          // Optional: Apply flat colors
+          if (guiData.flatColors) {
+            model.traverse(child => {
+              if (child.isMesh) {
+                child.material = new THREE.MeshBasicMaterial({ color: child.material.color });
+              }
+            });
+          }
+
+          // Get bounding box for clipping plane ranges
+          const bbox = new THREE.Box3().setFromObject(model);
+          bboxMin = bbox.min.clone();
+          bboxMax = bbox.max.clone();
+
+          // Set initial clipping planes at center
+          clippingPlanes[0].constant = -((bboxMin.x + bboxMax.x) / 2);
+          clippingPlanes[1].constant = -((bboxMin.y + bboxMax.y) / 2);
+          clippingPlanes[2].constant = -((bboxMin.z + bboxMax.z) / 2);
+
+          // Update GUI values and re-create GUI for new range
+          guiData.clippingXVal = -clippingPlanes[0].constant;
+          guiData.clippingYVal = -clippingPlanes[1].constant;
+          guiData.clippingZVal = -clippingPlanes[2].constant;
+
+          updateClipping();
+          scene.add(model);
+
+          // Fit camera to show the whole model in isometric view
+          const center = bbox.getCenter(new THREE.Vector3());
+          const size = bbox.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const fov = camera.fov * (Math.PI / 180);
+          let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+          cameraZ *= 1.2; // Add some padding
+
+          // Set camera position to isometric direction, at distance to fit model
+          const isoDirection = new THREE.Vector3(-1, 1, 1).normalize();
+          camera.position.copy(center).add(isoDirection.multiplyScalar(cameraZ));
+          camera.lookAt(center);
+
+          camera.near = Math.max(0.1, cameraZ / 100);
+          camera.far = cameraZ * 20 + maxDim * 2;
+          camera.updateProjectionMatrix();
+
+          createGUI();
+          updateEdgeLines();
+          addColorFilterTool();
+          hideProgressBar();
+        }, onProgress, onError);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      function createGUI() {
+        if (gui) gui.destroy();
+        gui = new GUI();
+
+        gui.add(guiData, 'modelFileName', modelFileList).name('Model').onFinishChange(function () {
+          reloadObject(true);
+        });
+
+        gui.add(guiData, 'flatColors').name('Flat Colors').onChange(function () {
+          reloadObject(false);
+        });
+
+        gui.add(guiData, 'displayEdges').name('Show Edge Lines').onChange(function () {
+          updateEdgeLines();
+        });
+
+        // Clipping controls for each axis, with ranges set to model bounding box
+        const folderX = gui.addFolder('Clipping X');
+        folderX.add(guiData, 'clippingX').name('Enable').onChange(updateClipping);
+        folderX.add(guiData, 'clippingXVal', bboxMin.x, bboxMax.x).name('X Plane').onChange(function (v) {
+          clippingPlanes[0].constant = -v;
+          updateClipping();
+        });
+
+        const folderY = gui.addFolder('Clipping Y');
+        folderY.add(guiData, 'clippingY').name('Enable').onChange(updateClipping);
+        folderY.add(guiData, 'clippingYVal', bboxMin.y, bboxMax.y).name('Y Plane').onChange(function (v) {
+          clippingPlanes[1].constant = -v;
+          updateClipping();
+        });
+
+        const folderZ = gui.addFolder('Clipping Z');
+        folderZ.add(guiData, 'clippingZ').name('Enable').onChange(updateClipping);
+        folderZ.add(guiData, 'clippingZVal', bboxMin.z, bboxMax.z).name('Z Plane').onChange(function (v) {
+          clippingPlanes[2].constant = -v;
+          updateClipping();
+        });
+      }
+
+      function animate() {
+        renderer.render(scene, camera);
+      }
+
+      function onProgress(xhr) {
+        if (xhr.lengthComputable) {
+          updateProgressBar(xhr.loaded / xhr.total);
+        }
+      }
+
+      function onError(error) {
+        const message = 'Error loading model';
+        progressBarDiv.innerText = message;
+        console.log(message);
+        console.error(error);
+      }
+
+      function showProgressBar() {
+        document.body.appendChild(progressBarDiv);
+      }
+
+      function hideProgressBar() {
+        if (document.body.contains(progressBarDiv)) {
+          document.body.removeChild(progressBarDiv);
+        }
+      }
+
+      function updateProgressBar(fraction) {
+        progressBarDiv.innerText = 'Loading... ' + Math.round(fraction * 100, 2) + '%';
+      }
+
+      function removeEdgeLines() {
+        edgeLines.forEach(edge => {
+          if (edge.parent) edge.parent.remove(edge);
+        });
+        edgeLines = [];
+      }
+
+      function updateEdgeLines() {
+        removeEdgeLines();
+        if (guiData.displayEdges && model) {
+          model.traverse(child => {
+            if (child.isMesh && child.visible) {
+              const edgeGeometry = new THREE.EdgesGeometry(child.geometry);
+              const edgeMaterial = new THREE.LineBasicMaterial({ color: 0x222222, linewidth: 1 });
+              const edgeLine = new THREE.LineSegments(edgeGeometry, edgeMaterial);
+              edgeLine.matrixAutoUpdate = false;
+              edgeLine.matrix.copy(child.matrixWorld);
+
+              edgeMaterial.clippingPlanes = getEnabledClippingPlanes();
+              edgeMaterial.clipShadows = true;
+
+              scene.add(edgeLine);
+              edgeLines.push(edgeLine);
+            }
+          });
+        }
+      }
+
+      function getEnabledClippingPlanes() {
+        const arr = [];
+        if (guiData.clippingX) arr.push(clippingPlanes[0]);
+        if (guiData.clippingY) arr.push(clippingPlanes[1]);
+        if (guiData.clippingZ) arr.push(clippingPlanes[2]);
+        return arr;
+      }
+
+      function updateClipping() {
+        if (!model) return;
+        const enabledPlanes = getEnabledClippingPlanes();
+        model.traverse(child => {
+          if (child.isMesh && child.material) {
+            if (Array.isArray(child.material)) {
+              child.material.forEach(mat => {
+                mat.clippingPlanes = enabledPlanes;
+                mat.clipShadows = true;
+              });
+            } else {
+              child.material.clippingPlanes = enabledPlanes;
+              child.material.clipShadows = true;
+            }
+          }
+        });
+        edgeLines.forEach(edge => {
+          edge.material.clippingPlanes = enabledPlanes;
+        });
+        renderer.localClippingEnabled = enabledPlanes.length > 0;
+      }
+
+      // --------- COLOR FILTER TOOL -----------
+      function addColorFilterTool() {
+        colorFilterData = {};
+        if (!model) return;
+        model.traverse(child => {
+          if (child.isMesh && child.material && child.material.color) {
+            const hex = "#" + child.material.color.getHexString();
+            // Use mapped name if available, else hex
+            const label = COLOR_NAME_MAP[hex.toLowerCase()] ? COLOR_NAME_MAP[hex.toLowerCase()] + " (" + hex + ")" : hex;
+            if (!colorFilterData[label]) {
+              colorFilterData[label] = { enabled: true, meshes: [] };
+            }
+            colorFilterData[label].meshes.push(child);
+          }
+        });
+
+        if (colorFilterFolder) {
+          gui.removeFolder(colorFilterFolder);
+        }
+
+        colorFilterFolder = gui.addFolder('Mesh Color Filter');
+        Object.keys(colorFilterData).forEach(label => {
+          colorFilterData[label].controller = colorFilterFolder.add(colorFilterData[label], 'enabled')
+            .name(label)
+            .onChange(val => {
+              colorFilterData[label].meshes.forEach(mesh => {
+                mesh.visible = !!val;
+              });
+              updateEdgeLines();
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

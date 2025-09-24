@@ -1,0 +1,229 @@
+/* LifeCycleTable.module.css */
+
+.ritz {
+  font-family: Arial, sans-serif;
+}
+
+.waffle a {
+  color: inherit;
+}
+
+.gridContainer {
+  background-color: white;
+  border: 1px solid black;
+  overflow: auto;
+  max-width: 100%;
+}
+
+.waffle {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+  width: 100%;
+}
+
+.columnHeadersBackground {
+  background-color: white;
+  border-bottom: 1px solid #dadce0;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 12px;
+}
+
+.rowHeadersBackground {
+  background-color: white;
+  border-right: 1px solid #dadce0;
+  font-weight: bold;
+  text-align: center;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.rowHeaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.freezebarOriginLtr {
+  background-color: white;
+  border-bottom: 1px solid #dadce0;
+  border-right: 1px solid #dadce0;
+}
+
+.s0 {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  background-color: #ffffff;
+  text-align: left;
+  color: #000000;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 7pt;
+  vertical-align: bottom;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}
+
+.s1 {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  background-color: #ffffff;
+  text-align: center;
+  color: #000000;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 7pt;
+  vertical-align: bottom;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}
+
+.s2 {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  background-color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+  color: #000000;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 7pt;
+  vertical-align: bottom;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}
+
+.s3 {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  background-color: #ffffff;
+  text-align: left;
+  color: #000000;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 8pt;
+  vertical-align: bottom;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}
+
+.s4 {
+  border-right: 1px solid #000000;
+  background-color: #000000;
+  text-align: left;
+  font-weight: bold;
+  color: #ffffff;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 7pt;
+  vertical-align: bottom;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}
+
+.s5 {
+  border-bottom: 1px solid #000000;
+  background-color: #ffffff;
+  text-align: left;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  vertical-align: top;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}
+
+.s6 {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  background-color: #ffffff;
+  text-align: left;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  vertical-align: top;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}
+
+.s7 {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  background-color: #000000;
+  text-align: left;
+  font-weight: bold;
+  color: #ffffff;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 7pt;
+  vertical-align: bottom;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}
+
+.s8 {
+  border-bottom: 1px solid #000000;
+  background-color: #ffffff;
+  text-align: center;
+  color: #000000;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 7pt;
+  vertical-align: bottom;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}
+
+.s9 {
+  border-bottom: 1px solid #000000;
+  background-color: #ffffff;
+  text-align: left;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  vertical-align: bottom;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}
+
+.s10 {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+  background-color: #ffffff;
+  text-align: left;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  vertical-align: bottom;
+  white-space: normal;
+  overflow: hidden;
+  word-wrap: break-word;
+  direction: ltr;
+  padding: 2px 3px 2px 3px;
+}

@@ -1,0 +1,70 @@
+.container {
+    position: relative;
+}
+.backButton {
+  display: flex;
+  align-items: center;
+  padding-left: 0px;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  position: relative;
+  left: -2px;
+  position: relative;
+  top: -1px;
+}
+.viewerNavigationBar {
+  position: relative;
+}
+
+.viewerButton {
+  padding-left: 0px;
+}
+.navigationBar {
+  height: 15px;
+  display: flex;
+  margin-bottom: 0.6rem;
+}
+
+.projectTitle {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 9pt;
+  margin: 0px;
+  margin-top: 1px;
+  line-height: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 70%;
+}
+
+.container {
+  height: 100%; /* Fill parent container */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sectionHeader {
+  flex-shrink: 0; /* Fixed height, won't shrink */
+  height: auto; /* or set a specific height if needed */
+}
+
+.sectionCore {
+  flex: 1;
+  overflow: hidden; 
+  scroll-snap-type: y mandatory;
+  scroll-snap-align: center;
+  min-height: 0;
+}
+
+.sectionFooter {
+  flex-shrink: 0; /* Fixed height, won't shrink */
+  /* Add any specific height or padding you need */
+  height: auto; /* or set a specific height if needed */
+}
+

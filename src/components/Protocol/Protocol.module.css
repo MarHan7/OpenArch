@@ -1,0 +1,43 @@
+.projectDisplay {
+  font-family: Arial, sans-serif;
+  max-height: 100vh;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  text-align: justify;
+}
+
+.container h2:first-of-type {
+  margin-top: 0px;
+}
+
+.referenceList {
+  padding-left: 13px;
+}
+
+.pageTitle {
+  font-size: 12px;
+  font-weight: lighter;
+  text-transform: uppercase;
+}
+
+.materialsTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.tableHeader {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+.tableCell {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+.workPackageTable {
+  border-collapse: collapse;
+  width: 100%;
+}

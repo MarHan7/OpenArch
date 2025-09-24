@@ -1,0 +1,103 @@
+/* components/ProjectList/ProjectList.module.css */
+.container {
+  --grid-columns: 28px 1.5fr 2fr 1.5fr 1fr 28px 28px 60px;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerRow {
+  display: grid;
+  grid-template-columns: var(--grid-columns); /* Year, Name, Architect, Location, Category, m2, kg/m2, kg CO2/m2 */
+  gap: 12px;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.headerCell {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  padding: 4px 0px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.projectList {
+  flex: 1;
+  overflow-y: auto;
+  /* Hide scrollbar in Webkit browsers */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.projectList::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.projectItem {
+  display: grid;
+  grid-template-columns: var(--grid-columns);
+  gap: 12px;
+  align-items: center;
+  padding: 4px 0px;
+  cursor: pointer;
+}
+
+.hasModels:hover {
+  background-color: black;
+  color: white;
+}
+
+.projectCell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.projectLeft {
+  display: contents;
+}
+
+.projectRight {
+  display: contents;
+}
+
+.comma {
+  display: none;
+}
+
+.year {
+  text-align: right;
+  justify-self: end;
+}
+
+.separator {
+  border: none;
+  border-top: 1px solid black;
+  margin: 0;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.m2,
+.kgPerM2,
+.kgCO2PerM2,
+.rightAlignedCell  {
+  text-align: right;
+  display: block;
+  width: 100%;
+}
+
+img {
+  width: 100%;
+}

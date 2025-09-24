@@ -1,0 +1,264 @@
+/* GLBViewer.module.css - CLEAN VERSION */
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+
+.canvasContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.canvasContainer canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Other existing styles - keep these */
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.loadingText {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.debugInfo {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: monospace;
+  z-index: 50;
+}
+
+.errorOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(220, 53, 69, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.errorText {
+  background: white;
+  color: #721c24;
+  padding: 24px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.errorText h4 {
+  margin: 0 0 12px 0;
+  color: #721c24;
+  font-size: 16px;
+}
+
+.errorText p {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.errorButton {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.2s;
+}
+
+.errorButton:hover {
+  background: #c82333;
+}
+
+.modelSelect:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* FIXED lil-gui styles - positioned INSIDE the scene container */
+:global(.lil-gui) {
+  position: absolute !important;
+  top: 15px !important;
+  right: 15px !important;
+  z-index: 1000 !important;
+  background: rgba(0, 0, 0, 0.85) !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 12px !important;
+  color: white !important;
+  min-width: 280px !important;
+  max-width: 320px !important;
+}
+
+:global(.lil-gui .title) {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 8px 12px !important;
+  margin: 0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+:global(.lil-gui .controller) {
+  display: flex !important;
+  align-items: center !important;
+  padding: 6px 12px !important;
+  margin: 0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  height: auto !important;
+  min-height: 28px !important;
+}
+
+:global(.lil-gui .controller:last-child) {
+  border-bottom: none !important;
+}
+
+:global(.lil-gui .controller .name) {
+  flex: 1 !important;
+  margin-right: 12px !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 12px !important;
+  line-height: 1.2 !important;
+  min-width: 0 !important;
+  word-break: break-word !important;
+}
+
+:global(.lil-gui .controller .widget) {
+  flex-shrink: 0 !important;
+  width: auto !important;
+  min-width: 80px !important;
+  max-width: 120px !important;
+}
+
+:global(.lil-gui .controller input[type="checkbox"]) {
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+}
+
+:global(.lil-gui .controller input[type="range"]) {
+  width: 100% !important;
+  height: 4px !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 2px !important;
+  outline: none !important;
+  border: none !important;
+}
+
+:global(.lil-gui .controller input[type="range"]::-webkit-slider-thumb) {
+  appearance: none !important;
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 50% !important;
+  background: #007bff !important;
+  cursor: pointer !important;
+}
+
+:global(.lil-gui .controller input[type="number"]) {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 3px !important;
+  color: white !important;
+  padding: 4px 8px !important;
+  font-size: 11px !important;
+  width: 80px !important;
+}
+
+:global(.lil-gui .controller button) {
+  background: #007bff !important;
+  border: none !important;
+  border-radius: 4px !important;
+  color: white !important;
+  padding: 6px 12px !important;
+  font-size: 11px !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s !important;
+}
+
+:global(.lil-gui .controller button:hover) {
+  background: #0056b3 !important;
+}
+
+:global(.lil-gui .folder > .title) {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 8
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loadingText {
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+

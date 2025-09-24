@@ -1,0 +1,30 @@
+.container {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  max-height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.contactTitle {
+  margin-top: 0px;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 9pt;
+}
+
+.email {
+  color: black;
+}
+
+.addressBlock {
+  margin-bottom: 10px;
+}
+
+.addressBlock p{
+  margin: 0px;
+}
+
+.hidden {
+  display: none
+}

@@ -1,0 +1,121 @@
+/* GLBViewerFooter.module.css */
+.footer {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.footerContent {
+  display: flex;
+  gap: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.leftColumn,
+.rightColumn {
+  flex: 1;
+  min-width: 0; /* Prevents flex items from overflowing */
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.totalRow .nameCell{
+  font-weight: bold;
+}
+
+.sectionTitle {
+  font-size: 10px;
+  font-weight: lighter;
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sectionMeasure {
+  font-size: 10px;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dataRow {
+  border-bottom: 1px solid black;
+  line-height: 0.1;
+}
+
+.dataRow:last-child {
+  border-bottom: none;
+}
+
+
+.nameCell {
+  width: 50px;
+  padding: 0px 0;
+  vertical-align: middle;
+}
+
+.barCell {
+  width: calc(100% - 70px);
+  padding: 0px;
+  vertical-align: middle;
+}
+
+.valueCell {
+  width: 20px;
+  padding: 8px 0;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.materialName {
+  font-size: 10px;
+}
+
+.barContainer {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+}
+
+.proportionBar {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.emptyState {
+  text-align: center;
+  font-style: italic;
+  padding: 32px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .footerContent {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .footer {
+    padding: 12px;
+  }
+  
+  .nameCell {
+    width: 35%;
+  }
+  
+  .barCell {
+    width: 45%;
+  }
+  
+  .valueCell {
+    width: 20%;
+  }
+}
