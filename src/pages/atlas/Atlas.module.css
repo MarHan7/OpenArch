@@ -1,6 +1,11 @@
 .container {
-    position: relative;
+  position: relative;
+  height: 100%; /* Fill parent container */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
+
 .backButton {
   display: flex;
   align-items: center;
@@ -13,9 +18,9 @@
   border: none;
   position: relative;
   left: -2px;
-  position: relative;
   top: -1px;
 }
+
 .viewerNavigationBar {
   position: relative;
 }
@@ -23,10 +28,12 @@
 .viewerButton {
   padding-left: 0px;
 }
+
 .navigationBar {
   height: 15px;
   display: flex;
   margin-bottom: 0.6rem;
+  gap: 8px;
 }
 
 .projectTitle {
@@ -42,13 +49,6 @@
   width: 70%;
 }
 
-.container {
-  height: 100%; /* Fill parent container */
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
 .sectionHeader {
   flex-shrink: 0; /* Fixed height, won't shrink */
   height: auto; /* or set a specific height if needed */
@@ -56,7 +56,7 @@
 
 .sectionCore {
   flex: 1;
-  overflow: hidden; 
+  overflow: hidden;
   scroll-snap-type: y mandatory;
   scroll-snap-align: center;
   min-height: 0;
@@ -64,7 +64,39 @@
 
 .sectionFooter {
   flex-shrink: 0; /* Fixed height, won't shrink */
-  /* Add any specific height or padding you need */
   height: auto; /* or set a specific height if needed */
 }
 
+@media (max-width: 992px) {
+  .navigationBar {
+    flex-wrap: wrap;
+    justify-content: center;
+    height: auto;
+  }
+
+  .backButton {
+    order: 1;
+  }
+
+  .viewerButton {
+    order: 2;
+  }
+
+  .projectTitle {
+    order: 3;
+    width: 100%;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .sectionCore {
+    min-height: 50vh;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 600px) {
+  .navigationBar {
+    gap: 12px;
+  }
+}

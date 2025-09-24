@@ -13,9 +13,8 @@ code {
     monospace;
 }
 
-
 body, * {
-  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: 'Arial Narrow', Arial, 'Helvetica Neue', Helvetica, sans-serif;
   font-stretch: condensed; /* Helps narrow Arial on systems without Arial Narrow */
 }
 
@@ -30,7 +29,7 @@ html, body {
 
 #root {
   height: 100%;
-} 
+}
 
 body {
   scrollbar-width: none;
@@ -53,4 +52,37 @@ body:hover::-webkit-scrollbar-thumb {
 
 body:hover {
   scrollbar-width: thin; /* Firefox */
+}
+
+@media (max-width: 1200px) {
+  body {
+    margin: 0 2.4rem;
+  }
+}
+
+@media (max-width: 992px) {
+  :root {
+    --header-height: 120px;
+  }
+
+  html, body {
+    height: auto;
+    min-height: 100%;
+    overflow: auto;
+  }
+
+  #root {
+    height: auto;
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0 1.6rem 2.4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    margin: 0 1rem 2rem;
+  }
 }

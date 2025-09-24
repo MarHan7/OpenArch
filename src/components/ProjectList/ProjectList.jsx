@@ -156,28 +156,28 @@ function ProjectList({ projects, onProjectSelect, selectedProject }) {
               onClick={() => hasModels(project) && onProjectSelect(project)}
             >
               <div className={styles.projectCell}>
-                <span className={styles.year}>{project.year}</span>
+                <span className={styles.year} data-label="Year">{project.year}</span>
               </div>
               <div className={styles.projectCell}>
-                <span className={styles.projectName}>{project.name}</span>
+                <span className={styles.projectName} data-label="Name">{project.name}</span>
               </div>
               <div className={styles.projectCell}>
-                <span className={styles.constructor}>{project.constructor}</span>
+                <span className={styles.constructor} data-label="Architect">{project.constructor}</span>
               </div>
               <div className={styles.projectCell}>
-                <span className={styles.location}>{project.location}</span>
+                <span className={styles.location} data-label="Location">{project.location}</span>
               </div>
               <div className={styles.projectCell}>
-                <span className={styles.category}>{project.category}</span>
+                <span className={styles.category} data-label="Category">{project.category}</span>
               </div>
               <div className={styles.projectCell}>
-                <span className={styles.m2}>{project.footPrintMeaseure?.m2 || '-'}</span>
+                <span className={styles.m2} data-label="m²">{project.footPrintMeaseure?.m2 || '-'}</span>
               </div>
               <div className={styles.projectCell}>
-                <span className={styles.kgPerM2}>{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
+                <span className={styles.kgPerM2} data-label="kg/m²">{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
               </div>
               <div className={styles.projectCell}>
-                <span className={styles.kgCO2PerM2}>{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
+                <span className={styles.kgCO2PerM2} data-label="kg.eq.CO2/m²">{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
               </div>
             </div>
             {index < sortedProjects.length - 1 && <hr className={styles.separator} />}
