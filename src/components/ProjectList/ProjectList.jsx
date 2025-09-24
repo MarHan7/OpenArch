@@ -1,22 +1,43 @@
 import React, { useState, useMemo } from 'react';
+import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
 import styles from './ProjectList.module.css';
+
+const sortOptions = [
+  { value: '', label: 'Default order' },
+  { value: 'name', label: 'Name' },
+  { value: 'constructor', label: 'Architect' },
+  { value: 'location', label: 'Location' },
+  { value: 'year', label: 'Year' },
+  { value: 'category', label: 'Category' },
+  { value: 'm2', label: 'm²' },
+  { value: 'kgPerM2', label: 'kg/m²' },
+  { value: 'kgCO2PerM2', label: 'kg.eq.CO2/m²' }
+];
 
 function ProjectList({ projects, onProjectSelect, selectedProject }) {
   const [sortField, setSortField] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
+  const [expandedProjectId, setExpandedProjectId] = useState(null);
 
-  const handleSort = (field) => {
-    if (sortField === field) {
-      // If clicking the same field, toggle direction
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    } else {
-      // If clicking a new field, set it and default to ascending
-      setSortField(field);
-      setSortDirection('asc');
-    }
+  const handleSortFieldChange = (event) => {
+    const { value } = event.target;
+    setSortField(value);
+    setSortDirection('asc');
+  };
+
+  const toggleSortDirection = () => {
+    setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+  };
+
+  const toggleProjectDetails = (projectId) => {
+    setExpandedProjectId((prev) => (prev === projectId ? null : projectId));
   };
 
   const sortedProjects = useMemo(() => {
+    if (!sortField) {
+      return projects;
+    }
+
     return [...projects].sort((a, b) => {
       let aValue = '';
       let bValue = '';
@@ -59,130 +80,142 @@ function ProjectList({ projects, onProjectSelect, selectedProject }) {
       }
 
       if (['year', 'm2', 'kgPerM2', 'kgCO2PerM2'].includes(sortField)) {
-        // Numeric comparison
         return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
-      } else {
-        // String comparison
-        if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
-        if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
-        return 0;
       }
+
+      if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+      return 0;
     });
   }, [projects, sortField, sortDirection]);
 
-  const hasModels = (project) => {
-    return project.models && project.models.length > 0;
-  };
-  
-  const getSortIcon = (field) => {
-    if (sortField !== field) return null;
-    return sortDirection === 'asc' ? '▲' : '▼';
-  };
+  const hasModels = (project) => project.models && project.models.length > 0;
 
   if (projects.length === 0) {
     return (
       <div className={styles.container}>
-        <div className={styles.emptyState}>
-          No projects available.
-        </div>
+        <div className={styles.emptyState}>No projects available.</div>
       </div>
     );
   }
 
   return (
     <div className={styles.container}>
-      {/* Header */}
-      <div className={styles.headerRow}>
-        <div 
-          className={styles.headerCell}
-          onClick={() => handleSort('year')}
+      <div className={styles.controls}>
+        <label className={styles.sortLabel}>
+          Sort by
+          <select
+            className={styles.sortSelect}
+            value={sortField}
+            onChange={handleSortFieldChange}
+          >
+            {sortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button
+          type="button"
+          className={styles.sortDirectionButton}
+          onClick={toggleSortDirection}
+          disabled={!sortField}
+          aria-label={`Sort ${sortDirection === 'asc' ? 'descending' : 'ascending'}`}
         >
-          Year {getSortIcon('year')}
-        </div>
-        <div 
-          className={styles.headerCell}
-          onClick={() => handleSort('name')}
-        >
-          Name {getSortIcon('name')}
-        </div>
-        <div 
-          className={styles.headerCell}
-          onClick={() => handleSort('constructor')}
-        >
-          Architect {getSortIcon('constructor')}
-        </div>
-        <div 
-          className={styles.headerCell}
-          onClick={() => handleSort('location')}
-        >
-          Location {getSortIcon('location')}
-        </div>
-        <div 
-          className={styles.headerCell}
-          onClick={() => handleSort('category')}
-        >
-          Category {getSortIcon('category')}
-        </div>
-        <div 
-          className={`${styles.headerCell} ${styles.rightAlignedCell }`}
-          onClick={() => handleSort('m2')}
-        >
-          m² {getSortIcon('m2')}
-        </div>
-        <div 
-          className={`${styles.headerCell} ${styles.rightAlignedCell }`}
-          onClick={() => handleSort('kgPerM2')}
-        >
-          kg/m² {getSortIcon('kgPerM2')}
-        </div>
-        <div 
-          className={`${styles.headerCell} ${styles.rightAlignedCell }`}
-          onClick={() => handleSort('kgCO2PerM2')}
-        >
-          kg.eq.CO2/m² {getSortIcon('kgCO2PerM2')}
-        </div>
+          <span aria-hidden="true">{sortDirection === 'asc' ? '▲' : '▼'}</span>
+        </button>
       </div>
 
-      {/* Project List */}
       <div className={styles.projectList}>
-        {sortedProjects.map((project, index) => (
-          <React.Fragment key={project.id}>
+        {sortedProjects.map((project) => {
+          const isExpanded = expandedProjectId === project.id;
+          const canSelect = hasModels(project);
+          const projectDetailsId = `project-details-${project.id}`;
+
+          return (
             <div
+              key={project.id}
               className={[
                 styles.projectItem,
-                selectedProject?.id === project.id && styles.selected,
-                hasModels(project) && styles.hasModels
-              ].filter(Boolean).join(' ')}
-              onClick={() => hasModels(project) && onProjectSelect(project)}
+                canSelect ? styles.clickable : styles.disabled,
+                selectedProject?.id === project.id ? styles.selected : null,
+                isExpanded ? styles.expanded : null
+              ]
+                .filter(Boolean)
+                .join(' ')}
+              onClick={() => canSelect && onProjectSelect(project)}
             >
-              <div className={styles.projectCell}>
-                <span className={styles.year} data-label="Year">{project.year}</span>
+              <div className={styles.projectSummary}>
+                <div className={styles.summaryText}>
+                  <span className={styles.projectName}>{project.name}</span>
+                  {project.year && (
+                    <span className={styles.projectYear}>{project.year}</span>
+                  )}
+                </div>
+                <div className={styles.summaryActions}>
+                  {!canSelect && (
+                    <span className={styles.unavailable}>No model</span>
+                  )}
+                  <button
+                    type="button"
+                    className={styles.expandButton}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      toggleProjectDetails(project.id);
+                    }}
+                    aria-expanded={isExpanded}
+                    aria-controls={projectDetailsId}
+                  >
+                    {isExpanded ? (
+                      <HiChevronUp aria-hidden="true" />
+                    ) : (
+                      <HiChevronDown aria-hidden="true" />
+                    )}
+                    <span className={styles.srOnly}>
+                      {isExpanded ? 'Hide details' : 'Show details'} for {project.name}
+                    </span>
+                  </button>
+                </div>
               </div>
-              <div className={styles.projectCell}>
-                <span className={styles.projectName} data-label="Name">{project.name}</span>
-              </div>
-              <div className={styles.projectCell}>
-                <span className={styles.constructor} data-label="Architect">{project.constructor}</span>
-              </div>
-              <div className={styles.projectCell}>
-                <span className={styles.location} data-label="Location">{project.location}</span>
-              </div>
-              <div className={styles.projectCell}>
-                <span className={styles.category} data-label="Category">{project.category}</span>
-              </div>
-              <div className={styles.projectCell}>
-                <span className={styles.m2} data-label="m²">{project.footPrintMeaseure?.m2 || '-'}</span>
-              </div>
-              <div className={styles.projectCell}>
-                <span className={styles.kgPerM2} data-label="kg/m²">{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
-              </div>
-              <div className={styles.projectCell}>
-                <span className={styles.kgCO2PerM2} data-label="kg.eq.CO2/m²">{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
-              </div>
+
+              {isExpanded && (
+                <div className={styles.projectDetails} id={projectDetailsId}>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailLabel}>Architect</span>
+                    <span className={styles.detailValue}>{project.constructor || '-'}</span>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailLabel}>Location</span>
+                    <span className={styles.detailValue}>{project.location || '-'}</span>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailLabel}>Category</span>
+                    <span className={styles.detailValue}>{project.category || '-'}</span>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailLabel}>m²</span>
+                    <span className={styles.detailValue}>
+                      {project.footPrintMeaseure?.m2 ?? '-'}
+                    </span>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailLabel}>kg/m²</span>
+                    <span className={styles.detailValue}>
+                      {project.footPrintMeaseure?.kgPerM2 ?? '-'}
+                    </span>
+                  </div>
+                  <div className={styles.detailItem}>
+                    <span className={styles.detailLabel}>kg.eq.CO2/m²</span>
+                    <span className={styles.detailValue}>
+                      {project.footPrintMeaseure?.kgCO2PerM2 ?? '-'}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
-            {index < sortedProjects.length - 1 && <hr className={styles.separator} />}
-          </React.Fragment>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
