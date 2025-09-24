@@ -104,6 +104,25 @@ const GLBViewer = forwardRef(({
     return effectiveBaseZoom * multiplier;
   };
 
+  const resolveModelUrl = (path) => {
+    if (!path) return null;
+
+    if (/^(https?:)?\/\//.test(path)) {
+      return path;
+    }
+
+    if (path.startsWith('/')) {
+      return path;
+    }
+
+    const publicUrl = process.env.PUBLIC_URL || '';
+    const normalizedBase = publicUrl.endsWith('/') ? publicUrl.slice(0, -1) : publicUrl;
+    const normalizedPath = path.replace(/^\.\//, '').replace(/^\//, '');
+
+    const combinedPath = `${normalizedBase}/${normalizedPath}`;
+    return combinedPath.replace(/\/{2,}/g, '/');
+  };
+
   useEffect(() => {
     if (viewerRef.current) return;
 
@@ -395,8 +414,15 @@ const GLBViewer = forwardRef(({
 
       const modelCache = new Map();
       const loadModel = (modelPath) => {
-        if (modelCache.has(modelPath)) {
-          const cachedModel = modelCache.get(modelPath).clone();
+        const resolvedModelPath = resolveModelUrl(modelPath);
+
+        if (!resolvedModelPath) {
+          console.error('❌ Error loading model: Invalid model path provided', modelPath);
+          return;
+        }
+
+        if (modelCache.has(resolvedModelPath)) {
+          const cachedModel = modelCache.get(resolvedModelPath).clone();
           // ... use cached model
           return;
         }
@@ -423,7 +449,7 @@ const GLBViewer = forwardRef(({
         }
 
         gltfLoader.load(
-          modelPath,
+          resolvedModelPath,
           (gltf) => {
             const loadTime = performance.now() - startTime;
             
