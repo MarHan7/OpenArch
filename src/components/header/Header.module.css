@@ -1,42 +1,60 @@
 .container {
-    padding-top: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid black;
-    margin-bottom: 0.7rem;
-    position: relative;
+  padding: 16px 0;
+  border-bottom: 1px solid black;
+  margin-bottom: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 .title {
-    text-align: center;
-    font-size: 16pt;
-    font-weight: 600;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(18px, 3.2vw, 24px);
+  font-weight: 600;
 }
 
+
 .navbar {
-    display: flex;
-    justify-content:  space-between;
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-    padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 16px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
 .navbar li {
-    list-style: none;
+  list-style: none;
 }
 
-.navLink {
-    color: black;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 9pt;
-    font-weight: 400;
+.navLink,
+.navLinkKg {
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: clamp(11px, 2.2vw, 14px);
+  font-weight: 400;
+  letter-spacing: 0.05em;
 }
 
 .navLinkKg {
-    color: black;
-    text-decoration: none;
-    font-size: 9pt;
-    font-weight: 400;
-    text-transform: none;
+  text-transform: none;
+}
+
+@media (min-width: 993px) {
+  .container {
+    position: relative;
+    align-items: stretch;
+  }
+
+  .navbar {
+    position: absolute;
+    bottom: 0;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
 }

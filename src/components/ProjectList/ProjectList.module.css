@@ -101,3 +101,83 @@
 img {
   width: 100%;
 }
+
+.projectCell span {
+  display: block;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    --grid-columns: 40px 2fr 2fr 1.5fr 1fr 40px 40px 70px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    --grid-columns: 32px 2fr 2fr 1.4fr 1fr 36px 36px 64px;
+  }
+
+  .headerRow {
+    display: none;
+  }
+
+  .projectList {
+    overflow-y: visible;
+  }
+
+  .projectItem {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 12px 0;
+  }
+
+  .hasModels:hover {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  .projectCell {
+    white-space: normal;
+  }
+
+  .projectCell span {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 11px;
+    text-transform: none;
+  }
+
+  .projectCell span::before {
+    content: attr(data-label);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .year {
+    justify-self: start;
+    text-align: left;
+  }
+
+  .m2,
+  .kgPerM2,
+  .kgCO2PerM2 {
+    text-align: left;
+  }
+
+  .separator {
+    margin: 12px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .projectCell span {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .projectCell span::before {
+    min-width: 120px;
+  }
+}
