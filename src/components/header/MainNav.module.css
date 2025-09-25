@@ -6,7 +6,7 @@
 .navList {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 16px;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
