@@ -102,3 +102,13 @@
 .rightAlign span {
   text-align: right;
 }
+
+@media (max-width: 992px) {
+  .container {
+    height: auto;
+  }
+
+  .materialList {
+    max-height: 320px;
+  }
+}

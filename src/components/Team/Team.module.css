@@ -4,6 +4,24 @@
   overflow-y: auto;
   box-sizing: border-box;
   text-align: justify;
+  position: relative;
+  --collapsed-height: 420px;
+}
+
+.content {
+  display: block;
+}
+
+.expanded {
+  max-height: none;
+}
+
+.toggleButton {
+  display: none;
+}
+
+.fade {
+  display: none;
 }
 
 .projectDisplay h2:first-of-type {
@@ -34,4 +52,53 @@ ul li::before {
 
 .projectDisplay p {
   margin-top: 5px;
+}
+
+@media (max-width: 992px) {
+  .projectDisplay {
+    max-height: none;
+    overflow: visible;
+    padding-bottom: 56px;
+  }
+
+  .content {
+    max-height: var(--collapsed-height);
+    overflow: hidden;
+  }
+
+  .expanded {
+    max-height: none;
+  }
+
+  .toggleButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 16px;
+    padding: 10px 16px;
+    background-color: black;
+    color: white;
+    border: none;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+  }
+
+  .toggleButton:focus-visible {
+    outline: 2px solid black;
+    outline-offset: 2px;
+  }
+
+  .fade {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 80px;
+    bottom: 56px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
+    pointer-events: none;
+  }
 }
