@@ -71,6 +71,7 @@
     width: 100%;
     border-bottom: 1px solid black;
     padding: 12px 0;
+    margin-bottom: 1vh;
   }
 
   .mobileNavbar {

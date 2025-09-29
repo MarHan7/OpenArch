@@ -60,12 +60,12 @@ const projectsData = [
       kgPerM2: 43,
       kgCO2PerM2: 137
     },
-    // models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1926-DMX/1942-M88_Volumetry(draco).glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1926-DMX/1942-M88_Frame(nodraco).glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1926-DMX/1942-M88_System(draco).glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1926-DMX/1942-M88_MAT.glb', zoomValue: 1.5 },  
-    // ], 
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/1926-DMX/1942-M88_Volumetry(draco).glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/1926-DMX/1942-M88_Frame(nodraco).glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/1926-DMX/1942-M88_System(draco).glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/1926-DMX/1942-M88_MAT.glb', zoomValue: 1.5 },  
+    ], 
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -285,12 +285,12 @@ const projectsData = [
     year: 1953,
     location: "Paris, France",
     category: "Individual Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1952-MSM/1952-GLB_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1952-MSM/1952-GLB_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1952-MSM/1952-GLB_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1952-MSM/1952-GLB_Materiality.glb', zoomValue: 0.01 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1952-MSM/1952-GLB_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1952-MSM/1952-GLB_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1952-MSM/1952-GLB_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1952-MSM/1952-GLB_Materiality.glb', zoomValue: 0.01 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -378,12 +378,12 @@ const projectsData = [
     year: 1953,
     location: "Sanibel, USA",
     category: "Individual Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1952-WGH/1952-WGH_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1952-WGH/1952-WGH_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1952-WGH/1952-WGH_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1952-WGH/1952-WGH_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1952-WGH/1952-WGH_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1952-WGH/1952-WGH_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1952-WGH/1952-WGH_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1952-WGH/1952-WGH_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -424,12 +424,12 @@ const projectsData = [
     year: 1974,
     location: "Helsinki, Finland",
     category: "Habitat de loisir",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1968-MOD/1968-MOD_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1968-MOD/1968-MOD_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1968-MOD/1968-MOD_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1968-MOD/1968-MOD_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1968-MOD/1968-MOD_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1968-MOD/1968-MOD_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1968-MOD/1968-MOD_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1968-MOD/1968-MOD_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -470,12 +470,12 @@ const projectsData = [
     year: 1969,
     location: "Hellebæk, Denmark",
     category: "Individual Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1969-ESP/1969-ESP_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1969-ESP/1969-ESP_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1969-ESP/1969-ESP_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1969-ESP/1969-ESP_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1969-ESP/1969-ESP_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1969-ESP/1969-ESP_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1969-ESP/1969-ESP_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1969-ESP/1969-ESP_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -516,11 +516,11 @@ const projectsData = [
     year: 1970,
     location: "New Haven,USA",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1970-OMG/1970-OMG_Volumetry.glb", zoomValue: 17},
-    //  { id: 3, name: "System", path: './models/1970-OMG/1970-OMG_System.glb', zoomValue: 17},
-    //  { id: 2, name: "Materiality", path: './models/1970-OMG/1970-OMG_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1970-OMG/1970-OMG_Volumetry.glb", zoomValue: 17},
+     { id: 3, name: "System", path: './models/1970-OMG/1970-OMG_System.glb', zoomValue: 17},
+     { id: 2, name: "Materiality", path: './models/1970-OMG/1970-OMG_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -561,12 +561,12 @@ const projectsData = [
     year: 1974,
     location: "Ludres, France",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1972-LUD/1972-LUD_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1972-LUD/1972-LUD_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1972-LUD/1972-LUD_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1972-LUD/1972-LUD_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1972-LUD/1972-LUD_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1972-LUD/1972-LUD_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1972-LUD/1972-LUD_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1972-LUD/1972-LUD_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -607,12 +607,12 @@ const projectsData = [
     year: 1970,
     location: "Gripp, France",
     category: "Habitat de loisir",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1964-BUL/1964-BUL_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1964-BUL/1964-BUL_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1964-BUL/1964-BUL_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1964-BUL/1964-BUL_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1964-BUL/1964-BUL_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1964-BUL/1964-BUL_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1964-BUL/1964-BUL_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1964-BUL/1964-BUL_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -653,12 +653,12 @@ const projectsData = [
     year: 1972,
     location: "Port-Leucate, France",
     category: "Habitat de loisir",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1972-HEX/1972-HEX_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1972-HEX/1972-HEX_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1972-HEX/1972-HEX_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1972-HEX/1972-HEX_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1972-HEX/1972-HEX_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1972-HEX/1972-HEX_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1972-HEX/1972-HEX_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1972-HEX/1972-HEX_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -744,12 +744,12 @@ const projectsData = [
     year: 1977,
     location: "Neckartenzlingen, Germany",
     category: "Individual Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1977-TBS/1977-TBS_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1977-TBS/1977-TBS_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1977-TBS/1977-TBS_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1977-TBS/1977-TBS_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1977-TBS/1977-TBS_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1977-TBS/1977-TBS_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1977-TBS/1977-TBS_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1977-TBS/1977-TBS_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -835,12 +835,12 @@ const projectsData = [
     year: 1987,
     location: "Lewisham, England",
     category: "Individual Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1980-SEG/1980-SEG_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1980-SEG/1980-SEG_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1980-SEG/1980-SEG_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1980-SEG/1980-SEG_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1980-SEG/1980-SEG_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1980-SEG/1980-SEG_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1980-SEG/1980-SEG_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1980-SEG/1980-SEG_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -881,12 +881,12 @@ const projectsData = [
     year: 1983,
     location: "Hampshire, England",
     category: "Individual Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1983-YCH/1983-YCH_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1983-YCH/1983-YCH_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1983-YCH/1983-YCH_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1983-YCH/1983-YCH_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1983-YCH/1983-YCH_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1983-YCH/1983-YCH_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1983-YCH/1983-YCH_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1983-YCH/1983-YCH_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -927,12 +927,12 @@ const projectsData = [
     year: 1983,
     location: "Almere, Netherlands",
     category: "Individual Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1984-ALM/1984-ALM_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1984-ALM/1984-ALM_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1984-ALM/1984-ALM_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1984-ALM/1984-ALM_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1984-ALM/1984-ALM_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1984-ALM/1984-ALM_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1984-ALM/1984-ALM_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1984-ALM/1984-ALM_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1019,12 +1019,12 @@ const projectsData = [
     year: 2018,
     location: "Newbern, USA",
     category: "Individual Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2009-DAV/2009-DAV_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2009-DAV/2009-DAV_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2009-DAV/2009-DAV_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2009-DAV/2009-DAV_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2009-DAV/2009-DAV_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2009-DAV/2009-DAV_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2009-DAV/2009-DAV_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2009-DAV/2009-DAV_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1065,12 +1065,12 @@ const projectsData = [
     year: 2005,
     location: "Luzein, Switzerland",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2005-LBL/2005-LBL_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2005-LBL/2005-LBL_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2005-LBL/2005-LBL_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2005-LBL/2005-LBL_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2005-LBL/2005-LBL_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2005-LBL/2005-LBL_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2005-LBL/2005-LBL_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2005-LBL/2005-LBL_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1111,12 +1111,12 @@ const projectsData = [
     year: 2008,
     location: "New York, USA",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2003-S03/2003-S03_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2003-S03/2003-S03_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2003-S03/2003-S03_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2003-S03/2003-S03_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2003-S03/2003-S03_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2003-S03/2003-S03_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2003-S03/2003-S03_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2003-S03/2003-S03_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1157,12 +1157,12 @@ const projectsData = [
     year: 2020,
     location: "Lyon, France",
     category: "Vacation Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2014-FAC/2014-FAC_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2014-FAC/2014-FAC_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2014-FAC/2014-FAC_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2014-FAC/2014-FAC_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2014-FAC/2014-FAC_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2014-FAC/2014-FAC_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2014-FAC/2014-FAC_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2014-FAC/2014-FAC_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1203,12 +1203,12 @@ const projectsData = [
     year: 2021,
     location: "Salzburg, Austria",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2005-MCH/2005-MCH_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2005-MCH/2005-MCH_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2005-MCH/2005-MCH_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2005-MCH/2005-MCH_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2005-MCH/2005-MCH_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2005-MCH/2005-MCH_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2005-MCH/2005-MCH_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2005-MCH/2005-MCH_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1249,12 +1249,12 @@ const projectsData = [
     year: 2010,
     location: "La Ferté-Alais, France",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2010-HWM/2010-HWM_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2010-HWM/2010-HWM_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2010-HWM/2010-HWM_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2010-HWM/2010-HWM_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2010-HWM/2010-HWM_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2010-HWM/2010-HWM_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2010-HWM/2010-HWM_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2010-HWM/2010-HWM_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1341,12 +1341,12 @@ const projectsData = [
     year: 2011,
     location: "Onagawa, Japan",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2011-CTH/2011-CTH_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2011-CTH/2011-CTH_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2011-CTH/2011-CTH_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2011-CTH/2011-CTH_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2011-CTH/2011-CTH_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2011-CTH/2011-CTH_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2011-CTH/2011-CTH_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2011-CTH/2011-CTH_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1387,12 +1387,12 @@ const projectsData = [
     year: 2008,
     location: "Helsingør, Denmark",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2008-BBB/2008-BBB_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2008-BBB/2008-BBB_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2008-BBB/2008-BBB_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2008-BBB/2008-BBB_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2008-BBB/2008-BBB_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2008-BBB/2008-BBB_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2008-BBB/2008-BBB_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2008-BBB/2008-BBB_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1433,12 +1433,12 @@ const projectsData = [
     year: 2016,
     location: "Paris XVIe, France",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2017-AUB/2017-AUB_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2017-AUB/2017-AUB_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2017-AUB/2017-AUB_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2017-AUB/2017-AUB_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2017-AUB/2017-AUB_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2017-AUB/2017-AUB_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2017-AUB/2017-AUB_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2017-AUB/2017-AUB_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1479,12 +1479,12 @@ const projectsData = [
     year: 2016,
     location: "Winnenden, Germany",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2016-AKT/2016-AKT_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2016-AKT/2016-AKT_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2016-AKT/2016-AKT_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2016-AKT/2016-AKT_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2016-AKT/2016-AKT_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2016-AKT/2016-AKT_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2016-AKT/2016-AKT_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2016-AKT/2016-AKT_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1524,12 +1524,12 @@ const projectsData = [
     year: 1730,
     location: "Paris, France",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1730-PAR/1730-PAR_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1730-PAR/1730-PAR_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1730-PAR/1730-PAR_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1730-PAR/1730-PAR_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1730-PAR/1730-PAR_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1730-PAR/1730-PAR_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1730-PAR/1730-PAR_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1730-PAR/1730-PAR_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1569,12 +1569,12 @@ const projectsData = [
     year: 1859,
     location: "Guise, France",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/1859-FAM/1859-FAM_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/1859-FAM/1859-FAM_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/1859-FAM/1859-FAM_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/1859-FAM/1859-FAM_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/1859-FAM/1859-FAM_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/1859-FAM/1859-FAM_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/1859-FAM/1859-FAM_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/1859-FAM/1859-FAM_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1614,12 +1614,12 @@ const projectsData = [
     year: 2003,
     location: "Iquique, Chili",
     category: "Collective Housing",
-    //models: [
-    //  { id: 1, name: "Volumetry", path: "./models/2003-QTM/2003-QTM_Volumetry.glb", zoomValue: 9 },
-    //  { id: 4, name: "Frame", path: './models/2003-QTM/2003-QTM_Frame.glb', zoomValue: 9 },
-    //  { id: 3, name: "System", path: './models/2003-QTM/2003-QTM_System.glb', zoomValue: 9 },
-    //  { id: 2, name: "Materiality", path: './models/2003-QTM/2003-QTM_Materiality.glb', zoomValue: 1.5 },  
-    //],
+    models: [
+     { id: 1, name: "Volumetry", path: "./models/2003-QTM/2003-QTM_Volumetry.glb", zoomValue: 9 },
+     { id: 4, name: "Frame", path: './models/2003-QTM/2003-QTM_Frame.glb', zoomValue: 9 },
+     { id: 3, name: "System", path: './models/2003-QTM/2003-QTM_System.glb', zoomValue: 9 },
+     { id: 2, name: "Materiality", path: './models/2003-QTM/2003-QTM_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1659,12 +1659,12 @@ const projectsData = [
     year: 1900,
     location: "Saint-Véran, France",
     category: "Individual Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/1900-QRS/1900-QRS_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/1900-QRS/1900-QRS_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/1900-QRS/1900-QRS_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/1900-QRS/1900-QRS_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/1900-QRS/1900-QRS_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/1900-QRS/1900-QRS_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/1900-QRS/1900-QRS_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/1900-QRS/1900-QRS_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1704,12 +1704,12 @@ const projectsData = [
     year: 1924,
     location: "Paris XVIe, France",
     category: "Individual Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/1924-LAR/1924-LAR_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/1924-LAR/1924-LAR_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/1924-LAR/1924-LAR_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/1924-LAR/1924-LAR_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/1924-LAR/1924-LAR_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/1924-LAR/1924-LAR_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/1924-LAR/1924-LAR_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/1924-LAR/1924-LAR_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1749,12 +1749,12 @@ const projectsData = [
     year: 1934,
     location: "Rotterdam, Netherlands",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/1934-BER/1934-BER_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/1934-BER/1934-BER_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/1934-BER/1934-BER_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/1934-BER/1934-BER_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/1934-BER/1934-BER_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/1934-BER/1934-BER_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/1934-BER/1934-BER_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/1934-BER/1934-BER_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1794,12 +1794,12 @@ const projectsData = [
     year: 1972,
     location: "Lège-Cap-Ferret, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/1972-TDN/1972-TDN_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/1972-TDN/1972-TDN_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/1972-TDN/1972-TDN_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/1972-TDN/1972-TDN_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/1972-TDN/1972-TDN_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/1972-TDN/1972-TDN_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/1972-TDN/1972-TDN_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/1972-TDN/1972-TDN_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1839,12 +1839,12 @@ const projectsData = [
     year: 1982,
     location: "Villefontaine, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/1982-LSP/1982-LSP_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/1982-LSP/1982-LSP_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/1982-LSP/1982-LSP_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/1982-LSP/1982-LSP_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/1982-LSP/1982-LSP_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/1982-LSP/1982-LSP_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/1982-LSP/1982-LSP_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/1982-LSP/1982-LSP_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1884,12 +1884,12 @@ const projectsData = [
     year: 2005,
     location: "Mulhouse, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2005-CML/2005-CML_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2005-CML/2005-CML_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2005-CML/2005-CML_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2005-CML/2005-CML_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2005-CML/2005-CML_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2005-CML/2005-CML_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2005-CML/2005-CML_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2005-CML/2005-CML_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1929,12 +1929,12 @@ const projectsData = [
     year: 2005,
     location: "Mulhouse, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2005-CMN/2005-CMN_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2005-CMN/2005-CMN_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2005-CMN/2005-CMN_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2005-CMN/2005-CMN_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2005-CMN/2005-CMN_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2005-CMN/2005-CMN_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2005-CMN/2005-CMN_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2005-CMN/2005-CMN_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -1974,12 +1974,12 @@ const projectsData = [
     year: 2009,
     location: "Monterrey, Chili",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2009-MTR/2009-MTR_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2009-MTR/2009-MTR_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2009-MTR/2009-MTR_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2009-MTR/2009-MTR_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2009-MTR/2009-MTR_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2009-MTR/2009-MTR_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2009-MTR/2009-MTR_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2009-MTR/2009-MTR_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2019,12 +2019,12 @@ const projectsData = [
     year: 2010,
     location: "Santiago de Chile, Chili",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2010-LBH/2010-LBH_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2010-LBH/2010-LBH_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2010-LBH/2010-LBH_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2010-LBH/2010-LBH_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2010-LBH/2010-LBH_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2010-LBH/2010-LBH_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2010-LBH/2010-LBH_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2010-LBH/2010-LBH_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2064,12 +2064,12 @@ const projectsData = [
     year: 2011,
     location: "Cornebarrieu, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2011-CRB/2011-CRB_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2011-CRB/2011-CRB_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2011-CRB/2011-CRB_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2011-CRB/2011-CRB_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2011-CRB/2011-CRB_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2011-CRB/2011-CRB_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2011-CRB/2011-CRB_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2011-CRB/2011-CRB_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2109,12 +2109,12 @@ const projectsData = [
     year: 2013,
     location: "Constitucion, Chili",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2013-VVD/2013-VVD_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2013-VVD/2013-VVD_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2013-VVD/2013-VVD_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2013-VVD/2013-VVD_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2013-VVD/2013-VVD_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2013-VVD/2013-VVD_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2013-VVD/2013-VVD_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2013-VVD/2013-VVD_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2154,12 +2154,12 @@ const projectsData = [
     year: 2014,
     location: "Cornebarrieu, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2014-CRF/2014-CRF_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2014-CRF/2014-CRF_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2014-CRF/2014-CRF_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2014-CRF/2014-CRF_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2014-CRF/2014-CRF_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2014-CRF/2014-CRF_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2014-CRF/2014-CRF_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2014-CRF/2014-CRF_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2199,12 +2199,12 @@ const projectsData = [
     year: 2018,
     location: "Barcelona, Spain",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2018-LCL/2018-LCL_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2018-LCL/2018-LCL_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2018-LCL/2018-LCL_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2018-LCL/2018-LCL_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2018-LCL/2018-LCL_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2018-LCL/2018-LCL_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2018-LCL/2018-LCL_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2018-LCL/2018-LCL_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2244,12 +2244,12 @@ const projectsData = [
     year: 2018,
     location: "Lille, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2018-LPL/2018-LPL_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2018-LPL/2018-LPL_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2018-LPL/2018-LPL_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2018-LPL/2018-LPL_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2018-LPL/2018-LPL_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2018-LPL/2018-LPL_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2018-LPL/2018-LPL_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2018-LPL/2018-LPL_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2289,12 +2289,12 @@ const projectsData = [
     year: 2019,
     location: "Champs-sur-Marne, France",
     category: "Student residence",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2019-CCT/2019-CCT_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2019-CCT/2019-CCT_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2019-CCT/2019-CCT_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2019-CCT/2019-CCT_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2019-CCT/2019-CCT_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2019-CCT/2019-CCT_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2019-CCT/2019-CCT_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2019-CCT/2019-CCT_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2334,12 +2334,12 @@ const projectsData = [
     year: 2019,
     location: "Paris XIXe, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2019-FDR/2019-FDR_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2019-FDR/2019-FDR_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2019-FDR/2019-FDR_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2019-FDR/2019-FDR_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2019-FDR/2019-FDR_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2019-FDR/2019-FDR_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2019-FDR/2019-FDR_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2019-FDR/2019-FDR_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2379,12 +2379,12 @@ const projectsData = [
     year: 2019,
     location: "Clermont-Ferrand, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2019-LSB/2019-LSB_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2019-LSB/2019-LSB_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2019-LSB/2019-LSB_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2019-LSB/2019-LSB_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2019-LSB/2019-LSB_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2019-LSB/2019-LSB_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2019-LSB/2019-LSB_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2019-LSB/2019-LSB_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2424,12 +2424,12 @@ const projectsData = [
     year: 2020,
     location: "Stains, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2020-MNS/2020-MNS_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2020-MNS/2020-MNS_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2020-MNS/2020-MNS_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2020-MNS/2020-MNS_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2020-MNS/2020-MNS_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2020-MNS/2020-MNS_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2020-MNS/2020-MNS_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2020-MNS/2020-MNS_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2469,12 +2469,12 @@ const projectsData = [
     year: 2023,
     location: "Boulogne-Billancourt, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2023-4CM/2023-4CM_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2023-4CM/2023-4CM_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2023-4CM/2023-4CM_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2023-4CM/2023-4CM_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2023-4CM/2023-4CM_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2023-4CM/2023-4CM_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2023-4CM/2023-4CM_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2023-4CM/2023-4CM_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2514,12 +2514,12 @@ const projectsData = [
     year: 2023,
     location: "Le Rheu, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2023-LSP/2023-LSP_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2023-LSP/2023-LSP_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2023-LSP/2023-LSP_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2023-LSP/2023-LSP_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2023-LSP/2023-LSP_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2023-LSP/2023-LSP_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2023-LSP/2023-LSP_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2023-LSP/2023-LSP_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2559,12 +2559,12 @@ const projectsData = [
     year: 2024,
     location: "Arpajon, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2024-LAP/2024-LAP_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2024-LAP/2024-LAP_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2024-LAP/2024-LAP_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2024-LAP/2024-LAP_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2024-LAP/2024-LAP_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2024-LAP/2024-LAP_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2024-LAP/2024-LAP_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2024-LAP/2024-LAP_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2604,12 +2604,12 @@ const projectsData = [
     year: 2024,
     location: "Boulogne-Billancourt, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2024-LBB/2024-LBB_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2024-LBB/2024-LBB_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2024-LBB/2024-LBB_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2024-LBB/2024-LBB_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2024-LBB/2024-LBB_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2024-LBB/2024-LBB_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2024-LBB/2024-LBB_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2024-LBB/2024-LBB_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2649,12 +2649,12 @@ const projectsData = [
     year: 2025,
     location: "Ormesson-sur-Marne, France",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2025-LOM/2025-LOM_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2025-LOM/2025-LOM_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2025-LOM/2025-LOM_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2025-LOM/2025-LOM_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2025-LOM/2025-LOM_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2025-LOM/2025-LOM_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2025-LOM/2025-LOM_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2025-LOM/2025-LOM_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2694,12 +2694,12 @@ const projectsData = [
     year: 2011,
     location: "Antwerp, Belgium",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2011-TUI/2011-TUI_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2011-TUI/2011-TUI_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2011-TUI/2011-TUI_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2011-TUI/2011-TUI_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2011-TUI/2011-TUI_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2011-TUI/2011-TUI_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2011-TUI/2011-TUI_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2011-TUI/2011-TUI_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2739,12 +2739,12 @@ const projectsData = [
     year: 2014,
     location: "Schaerbeek, Belgium",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2014-ELI/2014-ELI_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2014-ELI/2014-ELI_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2014-ELI/2014-ELI_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2014-ELI/2014-ELI_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2014-ELI/2014-ELI_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2014-ELI/2014-ELI_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2014-ELI/2014-ELI_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2014-ELI/2014-ELI_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2784,12 +2784,12 @@ const projectsData = [
     year: 2016,
     location: "Antwerp, Belgium",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2016-FIV/2016-FIV_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2016-FIV/2016-FIV_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2016-FIV/2016-FIV_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2016-FIV/2016-FIV_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2016-FIV/2016-FIV_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2016-FIV/2016-FIV_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2016-FIV/2016-FIV_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2016-FIV/2016-FIV_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2829,12 +2829,12 @@ const projectsData = [
     year: 2017,
     location: "Zandhoven, Belgium",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2017-BUU/2017-BUU_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2017-BUU/2017-BUU_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2017-BUU/2017-BUU_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2017-BUU/2017-BUU_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2017-BUU/2017-BUU_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2017-BUU/2017-BUU_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2017-BUU/2017-BUU_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2017-BUU/2017-BUU_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2874,12 +2874,12 @@ const projectsData = [
     year: 2018,
     location: "Auderghem, Belgium",
     category: "Individual Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2018-VIG/2018-VIG_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2018-VIG/2018-VIG_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2018-VIG/2018-VIG_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2018-VIG/2018-VIG_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2018-VIG/2018-VIG_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2018-VIG/2018-VIG_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2018-VIG/2018-VIG_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2018-VIG/2018-VIG_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2919,12 +2919,12 @@ const projectsData = [
     year: 2019,
     location: "Molenbeek, Belgium",
     category: "Individual Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2019-KAR/2019-KAR_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2019-KAR/2019-KAR_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2019-KAR/2019-KAR_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2019-KAR/2019-KAR_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2019-KAR/2019-KAR_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2019-KAR/2019-KAR_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2019-KAR/2019-KAR_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2019-KAR/2019-KAR_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -2964,12 +2964,12 @@ const projectsData = [
     year: 2020,
     location: "Antwerp, Belgium",
     category: "Individual Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2020-HER/2020-HER_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2020-HER/2020-HER_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2020-HER/2020-HER_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2020-HER/2020-HER_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2020-HER/2020-HER_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2020-HER/2020-HER_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2020-HER/2020-HER_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2020-HER/2020-HER_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -3009,12 +3009,12 @@ const projectsData = [
     year: 2020,
     location: "Koekelberg, Belgium",
     category: "Individual Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2020-ONA/2020-ONA_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2020-ONA/2020-ONA_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2020-ONA/2020-ONA_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2020-ONA/2020-ONA_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2020-ONA/2020-ONA_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2020-ONA/2020-ONA_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2020-ONA/2020-ONA_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2020-ONA/2020-ONA_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -3054,12 +3054,12 @@ const projectsData = [
     year: 2021,
     location: "Leuven, Belgium",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2021-SIJ/2021-SIJ_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2021-SIJ/2021-SIJ_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2021-SIJ/2021-SIJ_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2021-SIJ/2021-SIJ_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2021-SIJ/2021-SIJ_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2021-SIJ/2021-SIJ_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2021-SIJ/2021-SIJ_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2021-SIJ/2021-SIJ_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -3099,12 +3099,12 @@ const projectsData = [
     year: 2022,
     location: "Schaerbeek, Belgium",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2022-JOL/2022-JOL_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2022-JOL/2022-JOL_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2022-JOL/2022-JOL_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2022-JOL/2022-JOL_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2022-JOL/2022-JOL_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2022-JOL/2022-JOL_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2022-JOL/2022-JOL_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2022-JOL/2022-JOL_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -3144,12 +3144,12 @@ const projectsData = [
     year: 2022,
     location: "Saint Servais, Belgium",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2022-SAI/2022-SAI_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2022-SAI/2022-SAI_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2022-SAI/2022-SAI_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2022-SAI/2022-SAI_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2022-SAI/2022-SAI_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2022-SAI/2022-SAI_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2022-SAI/2022-SAI_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2022-SAI/2022-SAI_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",
@@ -3189,12 +3189,12 @@ const projectsData = [
     year: 2023,
     location: "Temploux, Belgium",
     category: "Collective Housing",
-    // models: [
-    //   { id: 1, name: "Volumetry", path: "./models/2023-TEM/2023-TEM_Volumetry.glb", zoomValue: 9 },
-    //   { id: 4, name: "Frame", path: './models/2023-TEM/2023-TEM_Frame.glb', zoomValue: 9 },
-    //   { id: 3, name: "System", path: './models/2023-TEM/2023-TEM_System.glb', zoomValue: 9 },
-    //   { id: 2, name: "Materiality", path: './models/2023-TEM/2023-TEM_Materiality.glb', zoomValue: 1.5 },  
-    // ],
+    models: [
+      { id: 1, name: "Volumetry", path: "./models/2023-TEM/2023-TEM_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/2023-TEM/2023-TEM_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/2023-TEM/2023-TEM_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/2023-TEM/2023-TEM_Materiality.glb', zoomValue: 1.5 },  
+    ],
     materialsData: {
       title: "SURFACE AREA MASS",
       meassure: "kg/m²",

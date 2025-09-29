@@ -155,7 +155,11 @@
 }
 
 @media (max-width: 768px) {
-  .nameCell {
+  
+  .footer {
+    padding: 10px 0px;
+  }
+    .nameCell {
     width: 35%;
   }
 
