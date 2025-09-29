@@ -117,8 +117,8 @@ function ProjectList({ projects, onProjectSelect, selectedProject }) {
         >
           Location {getSortIcon('location')}
         </div>
-        <div 
-          className={styles.headerCell}
+        <div
+          className={`${styles.headerCell} ${styles.categoryColumn}`}
           onClick={() => handleSort('category')}
         >
           Category {getSortIcon('category')}
@@ -167,7 +167,7 @@ function ProjectList({ projects, onProjectSelect, selectedProject }) {
               <div className={styles.projectCell}>
                 <span className={styles.location}>{project.location}</span>
               </div>
-              <div className={styles.projectCell}>
+              <div className={`${styles.projectCell} ${styles.categoryColumn}`}>
                 <span className={styles.category}>{project.category}</span>
               </div>
               <div className={styles.projectCell}>
