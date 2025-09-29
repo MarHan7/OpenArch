@@ -67,6 +67,51 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.paginatedCore {
+  overflow: hidden;
+  position: relative;
+}
+
+.coreContent {
+  min-height: 100%;
+}
+
+.paginatedContent {
+  transition: transform 0.3s ease;
+}
+
+.paginationControls {
+  display: none;
+}
+
+.paginationButton {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.paginationButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.paginationIndicator {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 992px) {
+  .paginationControls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+  }
+}
+
 .sectionFooter {
   flex-shrink: 0; /* Fixed height, won't shrink */
   /* Add any specific height or padding you need */
