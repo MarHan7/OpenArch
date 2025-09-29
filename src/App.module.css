@@ -1,10 +1,14 @@
 .container {
-    display: flex;
+  display: flex;
+  height: calc(100vh - var(--header-height)); /* Subtract header height */
+  overflow: hidden; /* Prevent scrolling at main level on desktop */
 }
 
 .section {
-    width: 50%;
-    margin-bottom: 1.6rem;
+  width: 50%;
+  margin-bottom: 1.6rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .mobileScrollHint {
@@ -19,63 +23,96 @@
 }
 
 .sectionHeader {
-    height: auto;
+  height: auto;
 }
 
 .sectionCore {
-    height: 50vh;
+  height: 50vh;
 }
 
 .sectionFooter {
-    height: 60px;
+  height: 60px;
 }
 
 .leftSection {
-    border-right: 1px solid black;
-    padding-right: 16px;
-}
-
-.container {
-  height: calc(100vh - var(--header-height)); /* Subtract header height */
-  display: flex;
-  overflow: hidden; /* Prevent scrolling at main level */
-}
-
-.section {
-  display: flex;
-  flex-direction: column;
-}
-
-.leftSection {
-  flex: 1; /* or whatever ratio you want */
+  flex: 1;
+  border-right: 1px solid black;
+  padding-right: 16px;
 }
 
 .rightSection {
-  flex: 1; /* or whatever ratio you want */
+  flex: 1;
   padding-left: 16px;
+}
+
+.mobileNavbarContainer {
+  display: none;
+}
+
+.mobileSectionSpacer {
+  display: none;
+}
+
+.spacerArrow {
+  font-size: 1.25rem;
+  line-height: 1;
 }
 
 @media (max-width: 992px) {
   .container {
     flex-direction: column;
+    height: auto;
+    min-height: calc(2.05 * (100vh - var(--header-height)));
+    overflow: visible;
+  }
+
+  .section {
+    width: 100%;
+    margin-bottom: 0;
+    flex: none;
+    height: calc(100vh - var(--header-height));
   }
 
   .leftSection {
-    display: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+    padding-right: 0;
   }
 
   .rightSection {
-    padding: 0px;
+    padding-left: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .mobileScrollHint {
+  .mobileNavbarContainer {
     display: flex;
-    align-items: center;
     justify-content: center;
+    width: 100%;
+    border-bottom: 1px solid black;
     padding: 12px 0;
   }
 
-  .mobileScrollHintIcon {
-    font-size: 26px;
+  .mobileSectionSpacer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 4px 0 12px;
+    color: black;
+  }
+
+  .spacerArrow {
+    font-size: 1.2rem;
+  }
+
+  .mobileNavbar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    padding: 0;
+    margin: 0;
   }
 }
+
