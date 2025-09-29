@@ -113,7 +113,7 @@ const handleModelSelect = (model) => {
   };
 
   return (
-    <div className={`${isRightSection ? styles.rightSectionControls : "" }`}>
+    <div className={`${styles.controlsWrapper} ${isRightSection ? styles.rightSectionControls : ''}`}>
       {/* Model Selector - Positioned absolutely */}
       {selectedProject && (
         <div className={styles.modelSelectorContainer}>
