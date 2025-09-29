@@ -3,7 +3,7 @@ import GLBViewer from "../../components/GLBViewer/GLBViewer";
 import GLBViewerControls from "../../components/GLBViewer/GLBViewerControls";
 import GLBViewerFooter from "../../components/GLBViewer/GLBViewerFooter";
 import CollectionSelector from "../../components/ProjectList/CollectionSelector";
-import style from "./Atlas.module.css";
+import CollectionBook from "../../components/CollectionBook/CollectionBook";import style from "./Atlas.module.css";
 import ProjectList from '../../components/ProjectList/ProjectList';
 import projectData from "../../data/projectData";
 
@@ -215,12 +215,18 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
           className={`${style.coreContent} ${shouldPaginate ? style.paginatedContent : ''}`}
           style={shouldPaginate ? { transform: `translateY(-${currentPage * pageHeight}px)` } : undefined}
         >
-          {currentView === 'projectList' ? (
-            <ProjectList
+        {currentView === 'projectList' ? (
+          <>
+            {selectedCollection && (
+              <CollectionBook collectionName={selectedCollection} />
+            )}
+            <ProjectList 
               projects={filteredProjects}
               onProjectSelect={handleSelectProject}
               selectedProject={selectedProject}
             />
+          </>
+
           ) : (
             <GLBViewer
               ref={viewer1Ref}
