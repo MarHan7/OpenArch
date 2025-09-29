@@ -132,6 +132,10 @@
     padding: 12px;
   }
 
+  .sectionHeader {
+    margin-top: 5px;
+  }
+
   .mobileToggle {
     display: flex;
     align-items: center;
