@@ -24,7 +24,7 @@ function App() {
           <HeaderNav className={styles.mobileNavbar} />
         </div>
         <div className={styles.mobileSectionSpacer}>
-          <span className={styles.spacerArrow} aria-hidden="true">↓</span>
+          <span className={styles.spacerArrow} aria-hidden="true">▼</span>
         </div>
         <div className={`${styles.section} ${styles.rightSection}`} ref={rightSectionRef}>
           <Routes>
