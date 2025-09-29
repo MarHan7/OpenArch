@@ -393,7 +393,7 @@ function ProjectList({
           Location {getSortIcon('location')}
         </div>
         <div
-          className={styles.headerCell}
+          className={`${styles.headerCell} ${styles.categoryColumn}`}
           onClick={() => handleSort('category')}
         >
           Category {getSortIcon('category')}
@@ -418,51 +418,41 @@ function ProjectList({
         </div>
       </div>
 
-      <div
-        className={`${styles.projectList} ${showPagination ? styles.paginationMode : ''}`}
-        ref={listRef}
-      >
-        {visibleProjects.map((project, index) => {
-          const isSelected = selectedProject?.id === project.id;
-
-          return (
-            <React.Fragment key={project.id}>
-              <div
-                ref={index === 0 ? handleSetFirstItemRef : null}
-                data-project-list-item
-                className={[
-                  styles.projectItem,
-                  isSelected && styles.selected,
-                  hasModels(project) && styles.hasModels
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-                onClick={() => hasModels(project) && onProjectSelect(project)}
-              >
-                <div className={styles.projectCell}>
-                  <span className={styles.year}>{project.year}</span>
-                </div>
-                <div className={styles.projectCell}>
-                  <span className={styles.projectName}>{project.name}</span>
-                </div>
-                <div className={styles.projectCell}>
-                  <span className={styles.constructor}>{project.constructor}</span>
-                </div>
-                <div className={styles.projectCell}>
-                  <span className={styles.location}>{project.location}</span>
-                </div>
-                <div className={styles.projectCell}>
-                  <span className={styles.category}>{project.category}</span>
-                </div>
-                <div className={styles.projectCell}>
-                  <span className={styles.m2}>{project.footPrintMeaseure?.m2 || '-'}</span>
-                </div>
-                <div className={styles.projectCell}>
-                  <span className={styles.kgPerM2}>{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
-                </div>
-                <div className={styles.projectCell}>
-                  <span className={styles.kgCO2PerM2}>{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
-                </div>
+      {/* Project List */}
+      <div className={styles.projectList}>
+        {sortedProjects.map((project, index) => (
+          <React.Fragment key={project.id}>
+            <div
+              className={[
+                styles.projectItem,
+                selectedProject?.id === project.id && styles.selected,
+                hasModels(project) && styles.hasModels
+              ].filter(Boolean).join(' ')}
+              onClick={() => hasModels(project) && onProjectSelect(project)}
+            >
+              <div className={styles.projectCell}>
+                <span className={styles.year}>{project.year}</span>
+              </div>
+              <div className={styles.projectCell}>
+                <span className={styles.projectName}>{project.name}</span>
+              </div>
+              <div className={styles.projectCell}>
+                <span className={styles.constructor}>{project.constructor}</span>
+              </div>
+              <div className={styles.projectCell}>
+                <span className={styles.location}>{project.location}</span>
+              </div>
+              <div className={`${styles.projectCell} ${styles.categoryColumn}`}>
+                <span className={styles.category}>{project.category}</span>
+              </div>
+              <div className={styles.projectCell}>
+                <span className={styles.m2}>{project.footPrintMeaseure?.m2 || '-'}</span>
+              </div>
+              <div className={styles.projectCell}>
+                <span className={styles.kgPerM2}>{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
+              </div>
+              <div className={styles.projectCell}>
+                <span className={styles.kgCO2PerM2}>{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
               </div>
               {index < visibleProjects.length - 1 && (
                 <hr

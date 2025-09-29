@@ -103,71 +103,26 @@
   width: 100%;
 }
 
+.categoryColumn {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .container {
+    --grid-columns: 28px 2.4fr 2fr 1.8fr 32px 32px 44px;
+  }
+
+  .headerRow,
+  .projectItem {
+    gap: 8px;
+  }
+
+  .categoryColumn {
+    display: none;
+  }
+}
+
 img {
   width: 100%;
 }
 
-.paginationTabs {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.pageTabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.pageTab {
-  border: 1px solid black;
-  background: white;
-  padding: 4px 12px;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-size: 9pt;
-  font-weight: 500;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.pageTab:hover,
-.pageTab:focus-visible,
-.pageTabActive {
-  background-color: black;
-  color: white;
-}
-
-.paginationArrows {
-  display: flex;
-  gap: 6px;
-  margin-left: auto;
-}
-
-.arrowButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid black;
-  background: white;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.arrowButton:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-.arrowButton:not(:disabled):hover {
-  background-color: black;
-  color: white;
-}
-
-.arrowButton svg {
-  width: 16px;
-  height: 16px;
-}
