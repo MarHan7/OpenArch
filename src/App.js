@@ -9,6 +9,7 @@ import KgText from "./components/KGEQCO2/KGEQCO";
 import Protocol from "./components/Protocol/Protocol"
 import Contact from "./components/Contact/contact";
 import { useRef } from "react";
+
 function App() {
 
   const rightSectionRef = useRef(null);

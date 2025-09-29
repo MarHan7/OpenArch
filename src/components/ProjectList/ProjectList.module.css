@@ -16,6 +16,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
+  margin-bottom: 8px;
 }
 
 .headerCell {
@@ -35,6 +36,10 @@
   overflow-y: auto;
   /* Hide scrollbar in Webkit browsers */
   -ms-overflow-style: none; /* IE/Edge */
+}
+
+.paginationMode {
+  overflow-y: hidden;
 }
 
 .projectList::-webkit-scrollbar {
@@ -120,3 +125,4 @@
 img {
   width: 100%;
 }
+
