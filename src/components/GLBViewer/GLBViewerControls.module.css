@@ -272,7 +272,14 @@
     gap: 16px;
   }
   
-  .colorSection,
+  .colorSection{
+    width: 100%;
+  }
+
+  .colorGrid{
+    justify-content: space-between;
+  }
+
   .clippingSection {
     display: none;
   }
