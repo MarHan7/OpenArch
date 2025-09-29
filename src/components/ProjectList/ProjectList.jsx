@@ -93,50 +93,50 @@ function ProjectList({ projects, onProjectSelect, selectedProject }) {
     <div className={styles.container}>
       {/* Header */}
       <div className={styles.headerRow}>
-        <div 
+        <div
           className={styles.headerCell}
           onClick={() => handleSort('year')}
         >
           Year {getSortIcon('year')}
         </div>
-        <div 
-          className={styles.headerCell}
-          onClick={() => handleSort('name')}
-        >
-          Name {getSortIcon('name')}
-        </div>
-        <div 
+        <div
           className={styles.headerCell}
           onClick={() => handleSort('constructor')}
         >
           Architect {getSortIcon('constructor')}
         </div>
-        <div 
+        <div
+          className={styles.headerCell}
+          onClick={() => handleSort('name')}
+        >
+          Name {getSortIcon('name')}
+        </div>
+        <div
           className={styles.headerCell}
           onClick={() => handleSort('location')}
         >
           Location {getSortIcon('location')}
         </div>
-        <div 
-          className={styles.headerCell}
+        <div
+          className={`${styles.headerCell} ${styles.categoryColumn}`}
           onClick={() => handleSort('category')}
         >
           Category {getSortIcon('category')}
         </div>
-        <div 
+        <div
           className={`${styles.headerCell} ${styles.rightAlignedCell }`}
           onClick={() => handleSort('m2')}
         >
           m² {getSortIcon('m2')}
         </div>
-        <div 
+        <div
           className={`${styles.headerCell} ${styles.rightAlignedCell }`}
           onClick={() => handleSort('kgPerM2')}
         >
           kg/m² {getSortIcon('kgPerM2')}
         </div>
-        <div 
-          className={`${styles.headerCell} ${styles.rightAlignedCell }`}
+        <div
+          className={`${styles.headerCell} ${styles.rightAlignedCell } ${styles.kgCO2Column}`}
           onClick={() => handleSort('kgCO2PerM2')}
         >
           kg.eq.CO2/m² {getSortIcon('kgCO2PerM2')}
@@ -159,15 +159,15 @@ function ProjectList({ projects, onProjectSelect, selectedProject }) {
                 <span className={styles.year}>{project.year}</span>
               </div>
               <div className={styles.projectCell}>
-                <span className={styles.projectName}>{project.name}</span>
+                <span className={styles.constructor}>{project.constructor}</span>
               </div>
               <div className={styles.projectCell}>
-                <span className={styles.constructor}>{project.constructor}</span>
+                <span className={styles.projectName}>{project.name}</span>
               </div>
               <div className={styles.projectCell}>
                 <span className={styles.location}>{project.location}</span>
               </div>
-              <div className={styles.projectCell}>
+              <div className={`${styles.projectCell} ${styles.categoryColumn}`}>
                 <span className={styles.category}>{project.category}</span>
               </div>
               <div className={styles.projectCell}>
@@ -176,7 +176,7 @@ function ProjectList({ projects, onProjectSelect, selectedProject }) {
               <div className={styles.projectCell}>
                 <span className={styles.kgPerM2}>{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
               </div>
-              <div className={styles.projectCell}>
+              <div className={`${styles.projectCell} ${styles.kgCO2Column}`}>
                 <span className={styles.kgCO2PerM2}>{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
               </div>
             </div>
