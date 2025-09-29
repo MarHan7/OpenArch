@@ -274,7 +274,7 @@
   
   .colorSection,
   .clippingSection {
-    width: 100%;
+    display: none;
   }
   
   .clippingRow {
