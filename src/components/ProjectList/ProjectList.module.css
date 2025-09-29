@@ -16,7 +16,6 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  margin-bottom: 8px;
 }
 
 .headerCell {
@@ -36,10 +35,6 @@
   overflow-y: auto;
   /* Hide scrollbar in Webkit browsers */
   -ms-overflow-style: none; /* IE/Edge */
-}
-
-.paginationMode {
-  overflow-y: hidden;
 }
 
 .projectList::-webkit-scrollbar {
@@ -103,26 +98,6 @@
   width: 100%;
 }
 
-.categoryColumn {
-  display: block;
-}
-
-@media (max-width: 768px) {
-  .container {
-    --grid-columns: 28px 2.4fr 2fr 1.8fr 32px 32px 44px;
-  }
-
-  .headerRow,
-  .projectItem {
-    gap: 8px;
-  }
-
-  .categoryColumn {
-    display: none;
-  }
-}
-
 img {
   width: 100%;
 }
-
