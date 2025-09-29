@@ -5,6 +5,21 @@
 .section {
     width: 50%;
     margin-bottom: 1.6rem;
+    min-height: 0;
+}
+
+.mobileScrollHint {
+  display: none;
+  width: 100%;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background-color: white;
+}
+
+.mobileScrollHintIcon {
+  display: block;
+  color: black;
+  line-height: 1;
 }
 
 .sectionHeader {
@@ -42,14 +57,30 @@
 .rightSection {
   flex: 1; /* or whatever ratio you want */
   padding-left: 16px;
+  min-height: 0;
 }
 
 @media (max-width: 992px) {
+  .container {
+    flex-direction: column;
+  }
+
   .leftSection {
     display: none;
   }
 
   .rightSection {
     padding: 0px;
+  }
+
+  .mobileScrollHint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 0;
+  }
+
+  .mobileScrollHintIcon {
+    font-size: 26px;
   }
 }
