@@ -42,7 +42,7 @@
   .container {
     flex-direction: column;
     height: auto;
-    min-height: calc(2 * (100vh - var(--header-height)));
+    min-height: calc(2.05 * (100vh - var(--header-height)));
     overflow: visible;
   }
 
@@ -52,7 +52,6 @@
     flex: none;
     height: calc(100vh - var(--header-height));
   }
-
 
   .leftSection {
     border-right: none;

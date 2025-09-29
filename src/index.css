@@ -30,7 +30,7 @@ html, body {
 
 #root {
   height: 100%;
-} 
+}
 
 body {
   scrollbar-width: none;
@@ -58,6 +58,18 @@ body:hover {
 @media (max-width: 992px) {
   body {
     margin: 0 2rem;
+  }
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  #root {
+    height: auto;
+    min-height: 100%;
   }
 }
 
