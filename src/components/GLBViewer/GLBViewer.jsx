@@ -94,9 +94,9 @@ const GLBViewer = forwardRef(({
     let multiplier = 1;
     
     if (screenWidth <= breakpoints.mobile) {
-      multiplier = 1.5;
+      multiplier = 1.8;
     } else if (screenWidth <= breakpoints.tablet) {
-      multiplier = 1.2;
+      multiplier = 1.3;
     } else if (screenWidth >= breakpoints.desktop) {
       multiplier = 0.8;
     }
