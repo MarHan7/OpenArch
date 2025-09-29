@@ -1,14 +1,13 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import GLBViewer from "../../components/GLBViewer/GLBViewer";
 import GLBViewerControls from "../../components/GLBViewer/GLBViewerControls";
 import GLBViewerFooter from "../../components/GLBViewer/GLBViewerFooter";
 import CollectionSelector from "../../components/ProjectList/CollectionSelector";
 import style from "./Atlas.module.css";
 import ProjectList from '../../components/ProjectList/ProjectList';
-import { HiViewList, HiCube } from 'react-icons/hi';
 import projectData from "../../data/projectData";
 
-function FullViewer({ view='viewer', rightSection=false }) {
+function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
 
   const allProjects = projectData.projectsData || projectData;
   const viewer1Ref = useRef();
@@ -21,14 +20,22 @@ function FullViewer({ view='viewer', rightSection=false }) {
     colorData: {},
     boundingBox: null
   });
+  const [isMobile, setIsMobile] = useState(false);
+  const sectionCoreRef = useRef(null);
+  const contentRef = useRef(null);
+  const [shouldPaginate, setShouldPaginate] = useState(false);
+  const [pageHeight, setPageHeight] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
 
   // Filter projects based on selected collection
-  const filteredProjects = selectedCollection 
+  const filteredProjects = selectedCollection
     ? allProjects.filter(project => project.collection === selectedCollection)
     : allProjects;
 
   const handleBackToProjects = () => {
     setCurrentView('projectList');
+    setCurrentPage(0);
   };
 
   const handleSelectProject = (project) => {
@@ -52,10 +59,89 @@ function FullViewer({ view='viewer', rightSection=false }) {
 
   const handleCollectionChange = (collection) => {
     setSelectedCollection(collection);
+    setCurrentPage(0);
   };
 
   const handleBackToViewer = () => {
     setCurrentView('viewer');
+    setCurrentPage(0);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 992);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const ref = rightSectionRef?.current;
+    return () => {
+      if (ref) {
+        ref.style.overflowY = '';
+      }
+    };
+  }, [rightSectionRef]);
+
+  const updatePagination = useCallback(() => {
+    if (!rightSection) {
+      return;
+    }
+
+    if (!isMobile || currentView !== 'projectList') {
+      setShouldPaginate(false);
+      setCurrentPage(0);
+      setTotalPages(1);
+      if (rightSectionRef?.current) {
+        rightSectionRef.current.style.overflowY = isMobile ? 'auto' : '';
+      }
+      return;
+    }
+
+    const coreEl = sectionCoreRef.current;
+    const contentEl = contentRef.current;
+
+    if (!coreEl || !contentEl) {
+      return;
+    }
+
+    const visibleHeight = coreEl.clientHeight;
+    const totalHeight = contentEl.scrollHeight;
+
+    if (totalHeight > visibleHeight + 1) {
+      const pages = Math.ceil(totalHeight / visibleHeight);
+      setShouldPaginate(true);
+      setPageHeight(visibleHeight);
+      setTotalPages(pages);
+      setCurrentPage(prev => Math.min(prev, pages - 1));
+      if (rightSectionRef?.current) {
+        rightSectionRef.current.style.overflowY = 'hidden';
+      }
+    } else {
+      setShouldPaginate(false);
+      setCurrentPage(0);
+      setTotalPages(1);
+      if (rightSectionRef?.current) {
+        rightSectionRef.current.style.overflowY = 'auto';
+      }
+    }
+  }, [currentView, isMobile, rightSection, rightSectionRef]);
+
+  useLayoutEffect(() => {
+    updatePagination();
+  }, [updatePagination, filteredProjects.length, currentView]);
+
+  const goToPreviousPage = () => {
+    setCurrentPage(prev => Math.max(prev - 1, 0));
+  };
+
+  const goToNextPage = () => {
+    setCurrentPage(prev => Math.min(prev + 1, totalPages - 1));
   };
 
   return (
@@ -121,37 +207,67 @@ function FullViewer({ view='viewer', rightSection=false }) {
         </div>
       </div>
       <div
-        className={`${style.sectionCore} ${currentView === 'projectList' ? style.listModeCore : ''}`}
+        ref={sectionCoreRef}
+        className={`${style.sectionCore} ${(currentView === 'projectList' && !shouldPaginate) ? style.listModeCore : ''} ${shouldPaginate ? style.paginatedCore : ''}`}
       >
-        {currentView === 'projectList' ? (
-          <ProjectList 
-            projects={filteredProjects}
-            onProjectSelect={handleSelectProject}
-            selectedProject={selectedProject}
-          />
-        ) : (
-          <GLBViewer 
-            ref={viewer1Ref}
-            modelPath={selectedModel?.path}
-            zoomValue = {selectedModel.zoomValue}
-            onColorDataChange={(colorData) => 
-              setViewer1Data(prev => ({ ...prev, colorData }))
-            }
-            onModelLoad={(data) => 
-              setViewer1Data(prev => ({ 
-                ...prev, 
-                boundingBox: data.boundingBox,
-                colorData: data.colorData 
-              }))
-            }
-          />
-        )}
+        <div
+          ref={contentRef}
+          className={`${style.coreContent} ${shouldPaginate ? style.paginatedContent : ''}`}
+          style={shouldPaginate ? { transform: `translateY(-${currentPage * pageHeight}px)` } : undefined}
+        >
+          {currentView === 'projectList' ? (
+            <ProjectList
+              projects={filteredProjects}
+              onProjectSelect={handleSelectProject}
+              selectedProject={selectedProject}
+            />
+          ) : (
+            <GLBViewer
+              ref={viewer1Ref}
+              modelPath={selectedModel?.path}
+              zoomValue = {selectedModel.zoomValue}
+              onColorDataChange={(colorData) =>
+                setViewer1Data(prev => ({ ...prev, colorData }))
+              }
+              onModelLoad={(data) =>
+                setViewer1Data(prev => ({
+                  ...prev,
+                  boundingBox: data.boundingBox,
+                  colorData: data.colorData
+                }))
+              }
+            />
+          )}
+        </div>
       </div>
+      {shouldPaginate && currentView === 'projectList' && (
+        <div className={style.paginationControls}>
+          <button
+            className={style.paginationButton}
+            onClick={goToPreviousPage}
+            disabled={currentPage === 0}
+            aria-label="Previous page"
+          >
+            ←
+          </button>
+          <div className={style.paginationIndicator}>
+            {currentPage + 1} / {totalPages}
+          </div>
+          <button
+            className={style.paginationButton}
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages - 1}
+            aria-label="Next page"
+          >
+            →
+          </button>
+        </div>
+      )}
       {currentView === 'viewer' && (
         <div className={style.sectionFooter}>
-          <GLBViewerFooter 
-            materialsData={selectedProject?.materialsData} 
-            footPrintData={selectedProject?.footPrintData} 
+          <GLBViewerFooter
+            materialsData={selectedProject?.materialsData}
+            footPrintData={selectedProject?.footPrintData}
           />
         </div>
       )}
