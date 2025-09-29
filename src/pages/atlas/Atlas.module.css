@@ -56,10 +56,15 @@
 
 .sectionCore {
   flex: 1;
-  overflow: hidden; 
+  overflow: hidden;
   scroll-snap-type: y mandatory;
   scroll-snap-align: center;
   min-height: 0;
+}
+
+.listModeCore {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sectionFooter {

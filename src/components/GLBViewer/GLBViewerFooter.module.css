@@ -3,6 +3,35 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+.mobileToggle {
+  display: none;
+}
+
+.mobileToggleLabel {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.toggleIcon {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+
+.toggleIconExpanded {
+  transform: rotate(-135deg);
+}
+
+.toggleIconCollapsed {
+  transform: rotate(45deg);
+}
+
 .footerContent {
   display: flex;
   gap: 12px;
@@ -97,20 +126,39 @@
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+  .footer {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .mobileToggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 8px;
+    background: white;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+
+  .mobileToggle:focus-visible {
+    outline: 2px solid black;
+    outline-offset: 2px;
+  }
+
   .footerContent {
     flex-direction: column;
     gap: 12px;
   }
-  
-  .footer {
-    padding: 12px;
-  }
-  
+}
+
+@media (max-width: 768px) {
   .nameCell {
     width: 35%;
   }
-  
+
   .barCell {
     width: 45%;
   }

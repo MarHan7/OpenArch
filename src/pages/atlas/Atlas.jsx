@@ -120,7 +120,9 @@ function FullViewer({ view='viewer', rightSection=false }) {
           ) : null}
         </div>
       </div>
-      <div className={style.sectionCore}>
+      <div
+        className={`${style.sectionCore} ${currentView === 'projectList' ? style.listModeCore : ''}`}
+      >
         {currentView === 'projectList' ? (
           <ProjectList 
             projects={filteredProjects}
