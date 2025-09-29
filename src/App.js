@@ -7,6 +7,7 @@ import teamData from "./data/teamData";
 import KgText from "./components/KGEQCO2/KGEQCO";
 import Protocol from "./components/Protocol/Protocol"
 import Contact from "./components/Contact/contact";
+import { HiChevronDown } from "react-icons/hi";
 function App() {
 
   return (
@@ -16,9 +17,12 @@ function App() {
         <div className={`${styles.section} ${styles.leftSection}`}>
           <FullViewer />
         </div>
+        <div className={styles.mobileScrollHint} aria-hidden="true">
+          <HiChevronDown className={styles.mobileScrollHintIcon} />
+        </div>
         <div className={`${styles.section} ${styles.rightSection}`}>
           <Routes>
-            <Route path="/" element={<FullViewer view='projectList' rightSection/>} /> 
+            <Route path="/" element={<FullViewer view='projectList' rightSection/>} />
             <Route path="/protocole" element={<Protocol />}/>
             <Route path="/kgeqco2" element={<KgText/>}/>
             <Route path="/communaute" element={<Team projectData={teamData} />}/> 
