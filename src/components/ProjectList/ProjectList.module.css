@@ -1,6 +1,6 @@
 /* components/ProjectList/ProjectList.module.css */
 .container {
-  --grid-columns: 28px 1.5fr 2fr 1.5fr 1fr 28px 28px 60px;
+  --grid-columns: 28px 2fr 1.5fr 1.5fr 1fr 28px 28px 60px;
   width: 100%;
   height: 100%;
   background-color: white;
@@ -10,7 +10,7 @@
 
 .headerRow {
   display: grid;
-  grid-template-columns: var(--grid-columns); /* Year, Name, Architect, Location, Category, m2, kg/m2, kg CO2/m2 */
+  grid-template-columns: var(--grid-columns); /* Year, Architect, Name, Location, Category, m2, kg/m2, kg CO2/m2 */
   gap: 12px;
   font-weight: bold;
   position: sticky;
@@ -96,6 +96,24 @@
   text-align: right;
   display: block;
   width: 100%;
+}
+
+.categoryColumn {
+  display: block;
+}
+
+.kgCO2Column {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .container {
+    --grid-columns: 28px 1.7fr 1.7fr 1.4fr 28px 28px 28px;
+  }
+
+  .categoryColumn {
+    display: none;
+  }
 }
 
 img {
