@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import styles from './GLBViewerFooter.module.css';
 import staticColorData from '../../data/colorData'
 
 const GLBViewerFooter = ({ materialsData = {}, footPrintData = {} }) => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
+  const contentId = useId();
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 992px)');
+
+    const handleChange = (event) => {
+      setIsMobile(event.matches);
+      setIsExpanded(!event.matches);
+    };
+
+    handleChange(mediaQuery);
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', handleChange);
+    } else if (typeof mediaQuery.addListener === 'function') {
+      mediaQuery.addListener(handleChange);
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === 'function') {
+        mediaQuery.removeEventListener('change', handleChange);
+      } else if (typeof mediaQuery.removeListener === 'function') {
+        mediaQuery.removeListener(handleChange);
+      }
+    };
+  }, []);
+
+  const handleToggle = () => {
+    setIsExpanded((prev) => !prev);
+  };
+
   // Fixed maximum value for ratio calculation
   const FIXED_VALUE_KGM2 = 1500;
   const FIXED_VALUE_CARBON = 1000;
-  
+
   // Helper function to render a data section
   const renderDataSection = (data, sectionKey, maxValue) => {
     if (!data.materials || data.materials.length === 0) {
@@ -85,14 +118,33 @@ const GLBViewerFooter = ({ materialsData = {}, footPrintData = {} }) => {
 
   return (
     <div className={styles.footer}>
-      <div className={styles.footerContent}>
-        <div className={styles.leftColumn}>
-          {renderDataSection(materialsData, 'materials', FIXED_VALUE_KGM2)}
+      {isMobile && (
+        <button
+          type="button"
+          className={styles.mobileToggle}
+          onClick={handleToggle}
+          aria-expanded={isExpanded}
+          aria-controls={contentId}
+        >
+          <span className={styles.mobileToggleLabel}>
+            {isExpanded ? 'Hide project data' : 'Show project data'}
+          </span>
+          <span
+            className={`${styles.toggleIcon} ${isExpanded ? styles.toggleIconExpanded : styles.toggleIconCollapsed}`}
+            aria-hidden="true"
+          />
+        </button>
+      )}
+      {(!isMobile || isExpanded) && (
+        <div className={styles.footerContent} id={contentId}>
+          <div className={styles.leftColumn}>
+            {renderDataSection(materialsData, 'materials', FIXED_VALUE_KGM2)}
+          </div>
+          <div className={styles.rightColumn}>
+            {renderDataSection(footPrintData, 'footprint', FIXED_VALUE_CARBON)}
+          </div>
         </div>
-        <div className={styles.rightColumn}>
-          {renderDataSection(footPrintData, 'footprint', FIXED_VALUE_CARBON)}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
