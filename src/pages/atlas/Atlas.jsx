@@ -1,11 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import GLBViewer from "../../components/GLBViewer/GLBViewer";
 import GLBViewerControls from "../../components/GLBViewer/GLBViewerControls";
 import GLBViewerFooter from "../../components/GLBViewer/GLBViewerFooter";
 import CollectionSelector from "../../components/ProjectList/CollectionSelector";
 import style from "./Atlas.module.css";
 import ProjectList from '../../components/ProjectList/ProjectList';
-import { HiViewList, HiCube } from 'react-icons/hi';
 import projectData from "../../data/projectData";
 
 function FullViewer({ view='viewer', rightSection=false }) {
@@ -122,10 +121,11 @@ function FullViewer({ view='viewer', rightSection=false }) {
       </div>
       <div className={style.sectionCore}>
         {currentView === 'projectList' ? (
-          <ProjectList 
+          <ProjectList
             projects={filteredProjects}
             onProjectSelect={handleSelectProject}
             selectedProject={selectedProject}
+            autoPaginateOnOverflow={rightSection}
           />
         ) : (
           <GLBViewer 
