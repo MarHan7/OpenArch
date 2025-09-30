@@ -8,16 +8,56 @@ import teamData from "./data/teamData";
 import KgText from "./components/KGEQCO2/KGEQCO";
 import Protocol from "./components/Protocol/Protocol"
 import Contact from "./components/Contact/contact";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 function App() {
 
+  const leftSectionRef = useRef(null);
   const rightSectionRef = useRef(null);
+  const [leftSectionHeight, setLeftSectionHeight] = useState(null);
+
+  useEffect(() => {
+    const element = leftSectionRef.current;
+
+    if (!element) {
+      return undefined;
+    }
+
+    const updateHeight = () => {
+      if (!leftSectionRef.current) {
+        return;
+      }
+
+      const { height } = leftSectionRef.current.getBoundingClientRect();
+      setLeftSectionHeight(height);
+    };
+
+    updateHeight();
+
+    const resizeObserverSupported = typeof ResizeObserver !== 'undefined';
+    const observer = resizeObserverSupported
+      ? new ResizeObserver(() => updateHeight())
+      : null;
+
+    if (observer) {
+      observer.observe(element);
+    } else if (typeof window !== 'undefined') {
+      window.addEventListener('resize', updateHeight);
+    }
+
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      } else if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', updateHeight);
+      }
+    };
+  }, []);
 
   return (
     <BrowserRouter>
       <Header />
       <div className={styles.container}>
-        <div className={`${styles.section} ${styles.leftSection}`}>
+        <div className={`${styles.section} ${styles.leftSection}`} ref={leftSectionRef}>
           <FullViewer />
         </div>
         <div className={styles.mobileNavbarContainer}>
@@ -35,6 +75,8 @@ function App() {
                   view='projectList'
                   rightSection
                   rightSectionRef={rightSectionRef}
+                  pairedSectionRef={leftSectionRef}
+                  pairedSectionHeight={leftSectionHeight}
                 />
               }
             />

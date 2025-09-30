@@ -3,11 +3,12 @@ import GLBViewer from "../../components/GLBViewer/GLBViewer";
 import GLBViewerControls from "../../components/GLBViewer/GLBViewerControls";
 import GLBViewerFooter from "../../components/GLBViewer/GLBViewerFooter";
 import CollectionSelector from "../../components/ProjectList/CollectionSelector";
-import CollectionBook from "../../components/CollectionBook/CollectionBook";import style from "./Atlas.module.css";
+import CollectionBook from "../../components/CollectionBook/CollectionBook";
+import style from "./Atlas.module.css";
 import ProjectList from '../../components/ProjectList/ProjectList';
 import projectData from "../../data/projectData";
 
-function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
+function FullViewer({ view='viewer', rightSection=false, rightSectionRef, pairedSectionRef, pairedSectionHeight }) {
 
   const allProjects = projectData.projectsData || projectData;
   const viewer1Ref = useRef();
@@ -32,6 +33,7 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
   const [isTitleOverflowing, setIsTitleOverflowing] = useState(false);
   const [titleScrollDistance, setTitleScrollDistance] = useState(0);
   const [titleAnimationDuration, setTitleAnimationDuration] = useState(12);
+  const [measuredPairedHeight, setMeasuredPairedHeight] = useState(null);
 
   // Filter projects based on selected collection
   const filteredProjects = selectedCollection
@@ -163,17 +165,84 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
     };
   }, [rightSectionRef]);
 
+  useEffect(() => {
+    if (typeof pairedSectionHeight === 'number') {
+      setMeasuredPairedHeight(pairedSectionHeight);
+    } else if (pairedSectionHeight == null) {
+      setMeasuredPairedHeight(null);
+    }
+  }, [pairedSectionHeight]);
+
+  useEffect(() => {
+    if (!rightSection || typeof pairedSectionHeight === 'number') {
+      return undefined;
+    }
+
+    if (!pairedSectionRef) {
+      setMeasuredPairedHeight(null);
+      return undefined;
+    }
+
+    let rafId;
+
+    const updateHeight = () => {
+      const element = pairedSectionRef.current;
+
+      if (!element) {
+        if (typeof window !== 'undefined') {
+          rafId = window.requestAnimationFrame(updateHeight);
+        }
+        return;
+      }
+
+      const { height } = element.getBoundingClientRect();
+      setMeasuredPairedHeight(height);
+    };
+
+    updateHeight();
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const observer = new ResizeObserver(() => updateHeight());
+      const element = pairedSectionRef.current;
+      if (element) {
+        observer.observe(element);
+      }
+
+      return () => {
+        observer.disconnect();
+        if (rafId && typeof window !== 'undefined') {
+          window.cancelAnimationFrame(rafId);
+        }
+      };
+    }
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', updateHeight);
+      return () => {
+        window.removeEventListener('resize', updateHeight);
+        if (rafId) {
+          window.cancelAnimationFrame(rafId);
+        }
+      };
+    }
+
+    return undefined;
+  }, [pairedSectionHeight, pairedSectionRef, rightSection]);
+
   const updatePagination = useCallback(() => {
     if (!rightSection) {
       return;
     }
 
+    const rightSectionEl = rightSectionRef?.current;
+
     if (!isMobile || currentView !== 'projectList') {
       setShouldPaginate(false);
       setCurrentPage(0);
       setTotalPages(1);
-      if (rightSectionRef?.current) {
-        rightSectionRef.current.style.overflowY = isMobile ? 'auto' : '';
+      setPageHeight(0);
+      if (rightSectionEl) {
+        rightSectionEl.style.overflowY = isMobile ? 'auto' : '';
       }
       return;
     }
@@ -185,31 +254,66 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
       return;
     }
 
-    const visibleHeight = coreEl.clientHeight;
+    const effectivePairedHeight =
+      typeof pairedSectionHeight === 'number'
+        ? pairedSectionHeight
+        : measuredPairedHeight;
+
+    const measuredVisibleHeight = effectivePairedHeight ?? coreEl.clientHeight;
+
+    if (!measuredVisibleHeight) {
+      setShouldPaginate(false);
+      setCurrentPage(0);
+      setTotalPages(1);
+      setPageHeight(0);
+      if (rightSectionEl) {
+        rightSectionEl.style.overflowY = 'auto';
+      }
+      return;
+    }
+
     const totalHeight = contentEl.scrollHeight;
 
-    if (totalHeight > visibleHeight + 1) {
-      const pages = Math.ceil(totalHeight / visibleHeight);
+    if (totalHeight > measuredVisibleHeight + 1) {
+      const pages = Math.ceil(totalHeight / measuredVisibleHeight);
       setShouldPaginate(true);
-      setPageHeight(visibleHeight);
+      setPageHeight(measuredVisibleHeight);
       setTotalPages(pages);
       setCurrentPage(prev => Math.min(prev, pages - 1));
-      if (rightSectionRef?.current) {
-        rightSectionRef.current.style.overflowY = 'hidden';
+      if (rightSectionEl) {
+        rightSectionEl.style.overflowY = 'hidden';
       }
     } else {
       setShouldPaginate(false);
       setCurrentPage(0);
       setTotalPages(1);
-      if (rightSectionRef?.current) {
-        rightSectionRef.current.style.overflowY = 'auto';
+      setPageHeight(measuredVisibleHeight);
+      if (rightSectionEl) {
+        rightSectionEl.style.overflowY = 'auto';
       }
     }
-  }, [currentView, isMobile, rightSection, rightSectionRef]);
+  }, [currentView, isMobile, measuredPairedHeight, pairedSectionHeight, rightSection, rightSectionRef]);
 
   useLayoutEffect(() => {
     updatePagination();
   }, [updatePagination, filteredProjects.length, currentView]);
+
+  useEffect(() => {
+    if (typeof ResizeObserver === 'undefined') {
+      return undefined;
+    }
+
+    const element = contentRef.current;
+
+    if (!element) {
+      return undefined;
+    }
+
+    const observer = new ResizeObserver(() => updatePagination());
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [updatePagination]);
 
   const goToPreviousPage = () => {
     setCurrentPage(prev => Math.max(prev - 1, 0));
@@ -289,6 +393,11 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
       <div
         ref={sectionCoreRef}
         className={`${style.sectionCore} ${(currentView === 'projectList' && !shouldPaginate) ? style.listModeCore : ''} ${shouldPaginate ? style.paginatedCore : ''}`}
+        style={shouldPaginate && pageHeight ? {
+          height: `${pageHeight}px`,
+          maxHeight: `${pageHeight}px`,
+          minHeight: `${pageHeight}px`
+        } : undefined}
       >
         <div
           ref={contentRef}
