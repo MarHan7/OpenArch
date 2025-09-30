@@ -8,7 +8,8 @@ import style from "./Atlas.module.css";
 import ProjectList from '../../components/ProjectList/ProjectList';
 import projectData from "../../data/projectData";
 
-function FullViewer({ view='viewer', rightSection=false, rightSectionRef, pairedSectionRef }) {
+function FullViewer({ view='viewer', rightSection=false, rightSectionRef, pairedSectionRef, pairedSectionHeight }) {
+
 
   const allProjects = projectData.projectsData || projectData;
   const viewer1Ref = useRef();
@@ -33,7 +34,7 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef, paired
   const [isTitleOverflowing, setIsTitleOverflowing] = useState(false);
   const [titleScrollDistance, setTitleScrollDistance] = useState(0);
   const [titleAnimationDuration, setTitleAnimationDuration] = useState(12);
-  const [pairedSectionHeight, setPairedSectionHeight] = useState(null);
+  const [measuredPairedHeight, setMeasuredPairedHeight] = useState(null);
 
   // Filter projects based on selected collection
   const filteredProjects = selectedCollection
@@ -166,13 +167,20 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef, paired
   }, [rightSectionRef]);
 
   useEffect(() => {
-    if (!rightSection) {
-      setPairedSectionHeight(null);
+    if (typeof pairedSectionHeight === 'number') {
+      setMeasuredPairedHeight(pairedSectionHeight);
+    } else if (pairedSectionHeight == null) {
+      setMeasuredPairedHeight(null);
+    }
+  }, [pairedSectionHeight]);
+
+  useEffect(() => {
+    if (!rightSection || typeof pairedSectionHeight === 'number') {
       return undefined;
     }
 
     if (!pairedSectionRef) {
-      setPairedSectionHeight(null);
+      setMeasuredPairedHeight(null);
       return undefined;
     }
 
@@ -189,7 +197,7 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef, paired
       }
 
       const { height } = element.getBoundingClientRect();
-      setPairedSectionHeight(height);
+      setMeasuredPairedHeight(height);
     };
 
     updateHeight();
@@ -220,7 +228,7 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef, paired
     }
 
     return undefined;
-  }, [pairedSectionRef, rightSection]);
+  }, [pairedSectionHeight, pairedSectionRef, rightSection]);
 
   const updatePagination = useCallback(() => {
     if (!rightSection) {
@@ -247,7 +255,12 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef, paired
       return;
     }
 
-    const measuredVisibleHeight = pairedSectionHeight ?? coreEl.clientHeight;
+    const effectivePairedHeight =
+      typeof pairedSectionHeight === 'number'
+        ? pairedSectionHeight
+        : measuredPairedHeight;
+
+    const measuredVisibleHeight = effectivePairedHeight ?? coreEl.clientHeight;
 
     if (!measuredVisibleHeight) {
       setShouldPaginate(false);
@@ -280,11 +293,28 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef, paired
         rightSectionEl.style.overflowY = 'auto';
       }
     }
-  }, [currentView, isMobile, pairedSectionHeight, rightSection, rightSectionRef]);
+  }, [currentView, isMobile, measuredPairedHeight, pairedSectionHeight, rightSection, rightSectionRef]);
 
   useLayoutEffect(() => {
     updatePagination();
   }, [updatePagination, filteredProjects.length, currentView]);
+
+  useEffect(() => {
+    if (typeof ResizeObserver === 'undefined') {
+      return undefined;
+    }
+
+    const element = contentRef.current;
+
+    if (!element) {
+      return undefined;
+    }
+
+    const observer = new ResizeObserver(() => updatePagination());
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [updatePagination]);
 
   const goToPreviousPage = () => {
     setCurrentPage(prev => Math.max(prev - 1, 0));
@@ -364,7 +394,11 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef, paired
       <div
         ref={sectionCoreRef}
         className={`${style.sectionCore} ${(currentView === 'projectList' && !shouldPaginate) ? style.listModeCore : ''} ${shouldPaginate ? style.paginatedCore : ''}`}
-        style={shouldPaginate && pageHeight ? { height: `${pageHeight}px` } : undefined}
+        style={shouldPaginate && pageHeight ? {
+          height: `${pageHeight}px`,
+          maxHeight: `${pageHeight}px`,
+          minHeight: `${pageHeight}px`
+        } : undefined}
       >
         <div
           ref={contentRef}
