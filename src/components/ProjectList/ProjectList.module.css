@@ -133,12 +133,12 @@
 .mobileDetailRow {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 10px;
   padding: 2px 0;
 }
 
 .mobileDetailLabel {
-  font-weight: 400;
+  font-weight: bold;
   padding: 0 5px 0 0;
 }
 
@@ -161,7 +161,6 @@
 
   .mobileDetails {
     display: flex;
-    grid-template-columns: repeat(2, 1fr);
     padding: 0 0 12px 0px;
     width: 100%;
     justify-content: space-between;
