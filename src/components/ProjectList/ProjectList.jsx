@@ -1,54 +1,20 @@
-import React, {
-  useState,
-  useMemo,
-  useEffect,
-  useRef,
-  useCallback
-} from 'react';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import React, { useState, useMemo } from 'react';
 import styles from './ProjectList.module.css';
 
-const MOBILE_VIEWPORT_QUERY = '(max-width: 992px)';
-
-function ProjectList({
-  projects,
-  onProjectSelect,
-  selectedProject,
-  autoPaginateOnOverflow = false
-}) {
+function ProjectList({ projects, onProjectSelect, selectedProject }) {
   const [sortField, setSortField] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
-
-  const containerRef = useRef(null);
-  const headerRef = useRef(null);
-  const listRef = useRef(null);
-  const firstItemRef = useRef(null);
-  const separatorRef = useRef(null);
-
-  const [isMobileViewport, setIsMobileViewport] = useState(() => {
-    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
-      return false;
-    }
-    return window.matchMedia(MOBILE_VIEWPORT_QUERY).matches;
-  });
-
-  const [pagination, setPagination] = useState({
-    active: false,
-    itemsPerPage: projects.length,
-    availableHeight: null
-  });
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const shouldAutoPaginate = autoPaginateOnOverflow && isMobileViewport;
+  const [expandedProjectIds, setExpandedProjectIds] = useState([]);
 
   const handleSort = (field) => {
     if (sortField === field) {
+      // If clicking the same field, toggle direction
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
+      // If clicking a new field, set it and default to ascending
       setSortField(field);
       setSortDirection('asc');
     }
-    setCurrentPage(0);
   };
 
   const sortedProjects = useMemo(() => {
@@ -94,8 +60,10 @@ function ProjectList({
       }
 
       if (['year', 'm2', 'kgPerM2', 'kgCO2PerM2'].includes(sortField)) {
+        // Numeric comparison
         return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
       } else {
+        // String comparison
         if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
         if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
         return 0;
@@ -103,204 +71,30 @@ function ProjectList({
     });
   }, [projects, sortField, sortDirection]);
 
-  const hasModels = (project) => project.models && project.models.length > 0;
-
+  const hasModels = (project) => {
+    return project.models && project.models.length > 0;
+  };
+  
   const getSortIcon = (field) => {
     if (sortField !== field) return null;
     return sortDirection === 'asc' ? '▲' : '▼';
   };
 
-  const updatePagination = useCallback(() => {
-    if (!listRef.current) {
-      return;
-    }
+  const isProjectExpanded = (projectId) => expandedProjectIds.includes(projectId);
 
-    if (!shouldAutoPaginate) {
-      setPagination((prev) => {
-        if (!prev.active && prev.itemsPerPage === sortedProjects.length && prev.availableHeight === null) {
-          return prev;
-        }
-        return {
-          active: false,
-          itemsPerPage: sortedProjects.length,
-          availableHeight: null
-        };
-      });
-      return;
-    }
-
-    const listHeight = listRef.current.clientHeight;
-    if (listHeight <= 0) {
-      return;
-    }
-
-    const sampleItem = firstItemRef.current || listRef.current.querySelector('[data-project-list-item]');
-    if (!sampleItem) {
-      return;
-    }
-
-    const itemStyles = window.getComputedStyle(sampleItem);
-    const marginTop = parseFloat(itemStyles.marginTop || '0');
-    const marginBottom = parseFloat(itemStyles.marginBottom || '0');
-    const itemHeight = sampleItem.offsetHeight + marginTop + marginBottom;
-
-    const sampleSeparator = separatorRef.current || listRef.current.querySelector('[data-project-list-separator]');
-    const separatorHeight = sampleSeparator ? sampleSeparator.offsetHeight : 0;
-    const rowHeight = itemHeight + separatorHeight;
-
-    if (rowHeight <= 0) {
-      return;
-    }
-
-    const maxItemsPerPage = Math.max(1, Math.floor(listHeight / rowHeight));
-    const shouldActivate = sortedProjects.length > maxItemsPerPage;
-
-    const nextState = shouldActivate
-      ? {
-          active: true,
-          itemsPerPage: maxItemsPerPage,
-          availableHeight: listHeight
-        }
-      : {
-          active: false,
-          itemsPerPage: sortedProjects.length,
-          availableHeight: null
-        };
-
-    setPagination((prev) => {
-      if (
-        prev.active === nextState.active &&
-        prev.itemsPerPage === nextState.itemsPerPage &&
-        prev.availableHeight === nextState.availableHeight
-      ) {
-        return prev;
+  const toggleProjectExpansion = (event, projectId) => {
+    event.stopPropagation();
+    setExpandedProjectIds((prevExpanded) => {
+      if (prevExpanded.includes(projectId)) {
+        return prevExpanded.filter((id) => id !== projectId);
       }
-      return nextState;
+      return [...prevExpanded, projectId];
     });
-  }, [shouldAutoPaginate, sortedProjects]);
-
-  useEffect(() => {
-    if (!autoPaginateOnOverflow) {
-      setIsMobileViewport(false);
-      return;
-    }
-
-    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
-      setIsMobileViewport(false);
-      return;
-    }
-
-    const mediaQuery = window.matchMedia(MOBILE_VIEWPORT_QUERY);
-    const handleMediaChange = (event) => {
-      setIsMobileViewport(event.matches);
-    };
-
-    setIsMobileViewport(mediaQuery.matches);
-
-    if (typeof mediaQuery.addEventListener === 'function') {
-      mediaQuery.addEventListener('change', handleMediaChange);
-    } else if (typeof mediaQuery.addListener === 'function') {
-      mediaQuery.addListener(handleMediaChange);
-    }
-
-    return () => {
-      if (typeof mediaQuery.removeEventListener === 'function') {
-        mediaQuery.removeEventListener('change', handleMediaChange);
-      } else if (typeof mediaQuery.removeListener === 'function') {
-        mediaQuery.removeListener(handleMediaChange);
-      }
-    };
-  }, [autoPaginateOnOverflow]);
-
-  useEffect(() => {
-    updatePagination();
-  }, [updatePagination]);
-
-  useEffect(() => {
-    if (!shouldAutoPaginate) {
-      return;
-    }
-
-    const handleResize = () => updatePagination();
-    window.addEventListener('resize', handleResize);
-
-    let resizeObserver = null;
-    if (typeof ResizeObserver !== 'undefined') {
-      resizeObserver = new ResizeObserver(() => {
-        requestAnimationFrame(updatePagination);
-      });
-
-      if (containerRef.current) {
-        resizeObserver.observe(containerRef.current);
-      }
-      if (listRef.current) {
-        resizeObserver.observe(listRef.current);
-      }
-    }
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      if (resizeObserver) {
-        resizeObserver.disconnect();
-      }
-    };
-  }, [shouldAutoPaginate, updatePagination]);
-
-  useEffect(() => {
-    if (!pagination.active) {
-      setCurrentPage(0);
-      return;
-    }
-
-    const itemsPerPage = Math.max(pagination.itemsPerPage, 1);
-    const totalPages = Math.ceil(sortedProjects.length / itemsPerPage);
-    setCurrentPage((prev) => Math.min(prev, Math.max(totalPages - 1, 0)));
-  }, [pagination.active, pagination.itemsPerPage, sortedProjects.length]);
-
-  useEffect(() => {
-    if (!pagination.active || !selectedProject) {
-      return;
-    }
-
-    const itemsPerPage = Math.max(pagination.itemsPerPage, 1);
-    const selectedIndex = sortedProjects.findIndex((project) => project.id === selectedProject.id);
-    if (selectedIndex === -1) {
-      return;
-    }
-
-    const targetPage = Math.floor(selectedIndex / itemsPerPage);
-    if (targetPage !== currentPage) {
-      setCurrentPage(targetPage);
-    }
-  }, [selectedProject, pagination.active, pagination.itemsPerPage, sortedProjects, currentPage]);
-
-  const handleSetFirstItemRef = useCallback(
-    (node) => {
-      if (node) {
-        firstItemRef.current = node;
-        if (shouldAutoPaginate) {
-          requestAnimationFrame(updatePagination);
-        }
-      }
-    },
-    [shouldAutoPaginate, updatePagination]
-  );
-
-  const handleSetSeparatorRef = useCallback(
-    (node) => {
-      if (node) {
-        separatorRef.current = node;
-        if (shouldAutoPaginate) {
-          requestAnimationFrame(updatePagination);
-        }
-      }
-    },
-    [shouldAutoPaginate, updatePagination]
-  );
+  };
 
   if (projects.length === 0) {
     return (
-      <div className={styles.container} ref={containerRef}>
+      <div className={styles.container}>
         <div className={styles.emptyState}>
           No projects available.
         </div>
@@ -308,77 +102,15 @@ function ProjectList({
     );
   }
 
-  const itemsPerPage = Math.max(pagination.itemsPerPage, 1);
-  const pageCount = pagination.active ? Math.ceil(sortedProjects.length / itemsPerPage) : 1;
-  const showPagination = pagination.active && pageCount > 1;
-
-  const startIndex = pagination.active ? currentPage * itemsPerPage : 0;
-  const endIndex = pagination.active ? Math.min(sortedProjects.length, startIndex + itemsPerPage) : sortedProjects.length;
-  const visibleProjects = sortedProjects.slice(startIndex, endIndex);
-
-  const handlePageSelect = (pageIndex) => {
-    setCurrentPage(pageIndex);
-  };
-
-  const handlePrevPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 0));
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, pageCount - 1));
-  };
-
   return (
-    <div className={styles.container} ref={containerRef}>
-      {showPagination && (
-        <div className={styles.paginationTabs}>
-          <div className={styles.pageTabs}>
-            {Array.from({ length: pageCount }).map((_, index) => (
-              <button
-                key={`page-${index}`}
-                type="button"
-                className={`${styles.pageTab} ${currentPage === index ? styles.pageTabActive : ''}`}
-                onClick={() => handlePageSelect(index)}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-          <div className={styles.paginationArrows}>
-            <button
-              type="button"
-              className={styles.arrowButton}
-              onClick={handlePrevPage}
-              disabled={currentPage === 0}
-              aria-label="Previous page"
-            >
-              <HiChevronLeft />
-            </button>
-            <button
-              type="button"
-              className={styles.arrowButton}
-              onClick={handleNextPage}
-              disabled={currentPage >= pageCount - 1}
-              aria-label="Next page"
-            >
-              <HiChevronRight />
-            </button>
-          </div>
-        </div>
-      )}
-
-      <div className={styles.headerRow} ref={headerRef}>
+    <div className={styles.container}>
+      {/* Header */}
+      <div className={styles.headerRow}>
         <div
           className={styles.headerCell}
           onClick={() => handleSort('year')}
         >
           Year {getSortIcon('year')}
-        </div>
-        <div
-          className={styles.headerCell}
-          onClick={() => handleSort('name')}
-        >
-          Name {getSortIcon('name')}
         </div>
         <div
           className={styles.headerCell}
@@ -388,98 +120,122 @@ function ProjectList({
         </div>
         <div
           className={styles.headerCell}
+          onClick={() => handleSort('name')}
+        >
+          Name {getSortIcon('name')}
+        </div>
+        <div
+          className={styles.headerCell}
           onClick={() => handleSort('location')}
         >
           Location {getSortIcon('location')}
         </div>
         <div
-          className={styles.headerCell}
+          className={`${styles.headerCell} ${styles.categoryColumn}`}
           onClick={() => handleSort('category')}
         >
           Category {getSortIcon('category')}
         </div>
         <div
-          className={`${styles.headerCell} ${styles.rightAlignedCell}`}
+          className={`${styles.headerCell} ${styles.rightAlignedCell } ${styles.metricColumn}`}
           onClick={() => handleSort('m2')}
         >
           m² {getSortIcon('m2')}
         </div>
         <div
-          className={`${styles.headerCell} ${styles.rightAlignedCell}`}
+          className={`${styles.headerCell} ${styles.rightAlignedCell } ${styles.metricColumn}`}
           onClick={() => handleSort('kgPerM2')}
         >
           kg/m² {getSortIcon('kgPerM2')}
         </div>
         <div
-          className={`${styles.headerCell} ${styles.rightAlignedCell}`}
+          className={`${styles.headerCell} ${styles.rightAlignedCell } ${styles.kgCO2Column}`}
           onClick={() => handleSort('kgCO2PerM2')}
         >
           kg.eq.CO2/m² {getSortIcon('kgCO2PerM2')}
         </div>
+        <div className={`${styles.headerCell} ${styles.expandToggle}`} aria-hidden>
+          &nbsp;
+        </div>
       </div>
 
-      <div
-        className={`${styles.projectList} ${showPagination ? styles.paginationMode : ''}`}
-        ref={listRef}
-      >
-        {visibleProjects.map((project, index) => {
-          const isSelected = selectedProject?.id === project.id;
+      {/* Project List */}
+      <div className={styles.projectList}>
+        {sortedProjects.map((project, index) => {
+          const detailId = `project-${project.id}-details`;
+          const expanded = isProjectExpanded(project.id);
 
           return (
             <React.Fragment key={project.id}>
               <div
-                ref={index === 0 ? handleSetFirstItemRef : null}
-                data-project-list-item
                 className={[
                   styles.projectItem,
-                  isSelected && styles.selected,
+                  selectedProject?.id === project.id && styles.selected,
                   hasModels(project) && styles.hasModels
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
+                ].filter(Boolean).join(' ')}
                 onClick={() => hasModels(project) && onProjectSelect(project)}
               >
                 <div className={styles.projectCell}>
                   <span className={styles.year}>{project.year}</span>
                 </div>
                 <div className={styles.projectCell}>
-                  <span className={styles.projectName}>{project.name}</span>
+                  <span className={styles.constructor}>{project.constructor}</span>
                 </div>
                 <div className={styles.projectCell}>
-                  <span className={styles.constructor}>{project.constructor}</span>
+                  <span className={styles.projectName}>{project.name}</span>
                 </div>
                 <div className={styles.projectCell}>
                   <span className={styles.location}>{project.location}</span>
                 </div>
-                <div className={styles.projectCell}>
+                <div className={`${styles.projectCell} ${styles.categoryColumn}`}>
                   <span className={styles.category}>{project.category}</span>
                 </div>
-                <div className={styles.projectCell}>
+                <div className={`${styles.projectCell} ${styles.metricColumn}`}>
                   <span className={styles.m2}>{project.footPrintMeaseure?.m2 || '-'}</span>
                 </div>
-                <div className={styles.projectCell}>
+                <div className={`${styles.projectCell} ${styles.metricColumn}`}>
                   <span className={styles.kgPerM2}>{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
                 </div>
-                <div className={styles.projectCell}>
+                <div className={`${styles.projectCell} ${styles.kgCO2Column}`}>
                   <span className={styles.kgCO2PerM2}>{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
                 </div>
+                <div className={`${styles.projectCell} ${styles.expandToggle}`}>
+                  <button
+                    type="button"
+                    className={styles.expandButton}
+                    onClick={(event) => toggleProjectExpansion(event, project.id)}
+                    aria-label={expanded ? 'Collapse project details' : 'Expand project details'}
+                    aria-expanded={expanded}
+                    aria-controls={detailId}
+                  >
+                    {expanded ? '▲' : '▼'}
+                  </button>
+                </div>
               </div>
-              {index < visibleProjects.length - 1 && (
-                <hr
-                  ref={index === 0 ? handleSetSeparatorRef : null}
-                  data-project-list-separator
-                  className={styles.separator}
-                />
+              {expanded && (
+                <div className={styles.mobileDetails} id={detailId}>
+                  <div className={styles.mobileDetailRow}>
+                    <span className={styles.mobileDetailLabel}>Category</span>
+                    <span className={styles.mobileDetailValue}>{project.category || '-'}</span>
+                  </div>
+                  <div className={styles.mobileDetailRow}>
+                    <span className={styles.mobileDetailLabel}>m²</span>
+                    <span className={styles.mobileDetailValue}>{project.footPrintMeaseure?.m2 || '-'}</span>
+                  </div>
+                  <div className={styles.mobileDetailRow}>
+                    <span className={styles.mobileDetailLabel}>kg/m²</span>
+                    <span className={styles.mobileDetailValue}>{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
+                  </div>
+                  <div className={styles.mobileDetailRow}>
+                    <span className={styles.mobileDetailLabel}>kg.eq.CO2/m²</span>
+                    <span className={styles.mobileDetailValue}>{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
+                  </div>
+                </div>
               )}
+              {index < sortedProjects.length - 1 && <hr className={styles.separator} />}
             </React.Fragment>
           );
         })}
-
-        {visibleProjects.length === 0 && (
-          <div className={styles.emptyState}>
-            No projects available.
-          </div>
-        )}
       </div>
     </div>
   );

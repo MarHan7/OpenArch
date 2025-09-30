@@ -11,17 +11,6 @@
   flex-direction: column;
 }
 
-.mobileScrollHint {
-  display: none;
-  width: 100%;
-}
-
-.mobileScrollHintIcon {
-  display: block;
-  color: black;
-  line-height: 1;
-}
-
 .sectionHeader {
   height: auto;
 }
@@ -115,4 +104,3 @@
     margin: 0;
   }
 }
-

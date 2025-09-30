@@ -61,10 +61,10 @@ const projectsData = [
       kgCO2PerM2: 137
     },
     models: [
-      { id: 1, name: "Volumetry", path: "./models/1926-DMX/1942-M88_Volumetry(draco).glb", zoomValue: 9 },
-      { id: 4, name: "Frame", path: './models/1926-DMX/1942-M88_Frame(nodraco).glb', zoomValue: 9 },
-      { id: 3, name: "System", path: './models/1926-DMX/1942-M88_System(draco).glb', zoomValue: 9 },
-      { id: 2, name: "Materiality", path: './models/1926-DMX/1942-M88_MAT.glb', zoomValue: 1.5 },  
+      { id: 1, name: "Volumetry", path: "./models/1947-DMX/1947-DMX_Volumetry.glb", zoomValue: 9 },
+      { id: 4, name: "Frame", path: './models/1947-DMX/1947-DMX_Frame.glb', zoomValue: 9 },
+      { id: 3, name: "System", path: './models/1947-DMX/1947-DMX_System.glb', zoomValue: 9 },
+      { id: 2, name: "Materiality", path: './models/1947-DMX/1947-DMX_Materiality.glb', zoomValue: 1.5 },  
     ], 
     materialsData: {
       title: "SURFACE AREA MASS",
