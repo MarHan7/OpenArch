@@ -22,6 +22,11 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import styles from './GLBViewer.module.css';
 
+const MOBILE_BREAKPOINT = 992;
+const MOBILE_ZOOM_MULTIPLIER = 2.2;
+const MOBILE_CAMERA_DISTANCE_MULTIPLIER = 2.6;
+const DEFAULT_CAMERA_DISTANCE_MULTIPLIER = 2;
+
 const GLBViewer = forwardRef(({ 
   models = [],
   modelPath = null,
@@ -39,6 +44,13 @@ const GLBViewer = forwardRef(({
   const [currentModelPath, setCurrentModelPath] = useState(modelPath);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
+
+  const isMobileViewport = () => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+    return window.innerWidth <= MOBILE_BREAKPOINT;
+  };
 
   useImperativeHandle(ref, () => ({
     setColorVisibility: (colorLabel, visible) => {
@@ -91,10 +103,15 @@ const GLBViewer = forwardRef(({
     const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
     const effectiveBaseZoom = isChrome ? baseZoom * chromeZoomMultiplier : baseZoom;
 
+    const hasWindow = typeof window !== 'undefined';
+    const viewportIsMobile = hasWindow
+      ? isMobileViewport()
+      : screenWidth <= breakpoints.mobile;
+
     let multiplier = 1;
-    
-    if (screenWidth <= breakpoints.mobile) {
-      multiplier = 1.8;
+
+    if (viewportIsMobile) {
+      multiplier = MOBILE_ZOOM_MULTIPLIER;
     } else if (screenWidth <= breakpoints.tablet) {
       multiplier = 1.3;
     } else if (screenWidth >= breakpoints.desktop) {
@@ -328,7 +345,10 @@ const GLBViewer = forwardRef(({
           const size = boundingBox.getSize(new Vector3());
           
           const maxDim = Math.max(size.x, size.y, size.z);
-          const fixedCameraDistance = maxDim * 2;
+          const distanceMultiplier = isMobileViewport()
+            ? MOBILE_CAMERA_DISTANCE_MULTIPLIER
+            : DEFAULT_CAMERA_DISTANCE_MULTIPLIER;
+          const fixedCameraDistance = maxDim * distanceMultiplier;
           
           const horizontalAngle = Math.PI / 4;
           const verticalOffset = fixedCameraDistance * 0.7;
