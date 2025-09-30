@@ -1,4 +1,4 @@
-export const MOBILE_PRIMARY_VIEWER_HEIGHT = '65vh';
+export const MOBILE_PRIMARY_VIEWER_HEIGHT = '53vh';
 
 /**
  * Adjust `MOBILE_PRIMARY_VIEWER_HEIGHT` to test different heights for the

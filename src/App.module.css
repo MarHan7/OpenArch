@@ -59,7 +59,6 @@
     width: 100%;
     margin-bottom: 0;
     flex: none;
-    height: calc(100vh - var(--header-height));
   }
 
   .leftSection {

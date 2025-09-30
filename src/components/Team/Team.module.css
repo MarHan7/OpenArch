@@ -35,3 +35,10 @@ ul li::before {
 .projectDisplay p {
   margin-top: 5px;
 }
+
+@media (max-width: 992px) {
+  ul li::before {
+    content: "";
+}
+
+}
