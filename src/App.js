@@ -53,6 +53,7 @@ function App() {
     };
   }, []);
 
+
   return (
     <BrowserRouter>
       <Header />
@@ -77,6 +78,7 @@ function App() {
                   rightSectionRef={rightSectionRef}
                   pairedSectionRef={leftSectionRef}
                   pairedSectionHeight={leftSectionHeight}
+
                 />
               }
             />

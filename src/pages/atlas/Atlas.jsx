@@ -10,6 +10,7 @@ import projectData from "../../data/projectData";
 
 function FullViewer({ view='viewer', rightSection=false, rightSectionRef, pairedSectionRef, pairedSectionHeight }) {
 
+
   const allProjects = projectData.projectsData || projectData;
   const viewer1Ref = useRef();
 
