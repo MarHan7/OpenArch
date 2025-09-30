@@ -23,10 +23,15 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
   const [isMobile, setIsMobile] = useState(false);
   const sectionCoreRef = useRef(null);
   const contentRef = useRef(null);
+  const projectTitleContainerRef = useRef(null);
+  const projectTitleRef = useRef(null);
   const [shouldPaginate, setShouldPaginate] = useState(false);
   const [pageHeight, setPageHeight] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
+  const [isTitleOverflowing, setIsTitleOverflowing] = useState(false);
+  const [titleScrollDistance, setTitleScrollDistance] = useState(0);
+  const [titleAnimationDuration, setTitleAnimationDuration] = useState(12);
 
   // Filter projects based on selected collection
   const filteredProjects = selectedCollection
@@ -67,17 +72,87 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
     setCurrentPage(0);
   };
 
+  const viewerTitleParts = [
+    selectedProject?.name,
+    selectedProject?.constructor,
+    selectedProject?.year
+  ].filter(Boolean);
+
+  const titleText = currentView === 'viewer'
+    ? (viewerTitleParts.length > 0 ? viewerTitleParts.join(' - ') : '')
+    : 'ATLAS';
+
+  const checkTitleOverflow = useCallback((mobileOverride) => {
+    const measure = () => {
+      const containerEl = projectTitleContainerRef.current;
+      const textEl = projectTitleRef.current;
+
+      if (!containerEl || !textEl) {
+        setIsTitleOverflowing(false);
+        setTitleScrollDistance(0);
+        return;
+      }
+
+      const isMobileViewport = mobileOverride ?? (typeof window !== 'undefined'
+        ? window.innerWidth <= 992
+        : isMobile);
+
+      if (!isMobileViewport) {
+        setIsTitleOverflowing(false);
+        setTitleScrollDistance(0);
+        return;
+      }
+
+      const containerWidth = containerEl.clientWidth;
+      const textWidth = textEl.scrollWidth;
+
+      if (textWidth > containerWidth + 1) {
+        const distance = textWidth - containerWidth;
+        const marqueeGap = 24;
+        const travelDistance = distance + marqueeGap;
+
+        setIsTitleOverflowing(true);
+        setTitleScrollDistance(travelDistance);
+
+        const baseSpeed = 40;
+        const totalTravel = textWidth + marqueeGap;
+        const duration = Math.max(totalTravel / baseSpeed, 8);
+        setTitleAnimationDuration(duration);
+      } else {
+        setIsTitleOverflowing(false);
+        setTitleScrollDistance(0);
+      }
+    };
+
+    if (typeof window !== 'undefined' && window.requestAnimationFrame) {
+      window.requestAnimationFrame(measure);
+    } else {
+      measure();
+    }
+  }, [isMobile]);
+
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 992);
+      const isNowMobile = window.innerWidth <= 992;
+      setIsMobile(isNowMobile);
+      checkTitleOverflow(isNowMobile);
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [checkTitleOverflow]);
+
+  useLayoutEffect(() => {
+    checkTitleOverflow();
+  }, [checkTitleOverflow, titleText, currentView, isMobile]);
 
   useEffect(() => {
     const ref = rightSectionRef?.current;
@@ -172,16 +247,21 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
                   display: 'inline-block'
                 }} />
           </button>
-          <h2 className={style.projectTitle}>
-            {currentView === 'viewer' ? (
-              <>
-                {selectedProject?.name || ''}
-                {selectedProject?.constructor && ` - ${selectedProject.constructor}`}
-                {selectedProject?.year && ` - ${selectedProject.year}`}
-              </>
-            ) : (
-              'ATLAS'
-            )}
+          <h2
+            className={style.projectTitle}
+            ref={projectTitleContainerRef}
+          >
+            <span
+              key={titleText}
+              ref={projectTitleRef}
+              className={`${style.projectTitleText} ${isMobile && isTitleOverflowing ? style.projectTitleMarquee : ''}`}
+              style={isMobile && isTitleOverflowing ? {
+                '--marquee-distance': `${Math.max(titleScrollDistance, 0)}px`,
+                '--marquee-duration': `${titleAnimationDuration}s`
+              } : undefined}
+            >
+              {titleText}
+            </span>
           </h2>
         </div>
         <div>
