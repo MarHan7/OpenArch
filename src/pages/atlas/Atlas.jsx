@@ -311,7 +311,8 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
             <GLBViewer
               ref={viewer1Ref}
               modelPath={selectedModel?.path}
-              zoomValue = {selectedModel.zoomValue}
+              zoomValue={selectedModel.zoomValue}
+              useMobileHeightVariable
               onColorDataChange={(colorData) =>
                 setViewer1Data(prev => ({ ...prev, colorData }))
               }

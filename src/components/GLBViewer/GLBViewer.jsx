@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useImperativeHandle, forwardRef, useState } from 'react';
 import colorMaterialsData from '../../data/colorData';
+import { MOBILE_PRIMARY_VIEWER_HEIGHT } from '../../config/viewerConfig';
 import {
   Scene,
   Color,
@@ -36,7 +37,8 @@ const GLBViewer = forwardRef(({
   withEdgesLines = false,
   onColorDataChange = () => {},
   onModelLoad = () => {},
-  onLoadingChange = () => {}
+  onLoadingChange = () => {},
+  useMobileHeightVariable = false
 }, ref) => {
   const mountRef = useRef(null);
   const viewerRef = useRef(null);
@@ -44,6 +46,7 @@ const GLBViewer = forwardRef(({
   const [currentModelPath, setCurrentModelPath] = useState(modelPath);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [viewerHeight, setViewerHeight] = useState(height);
 
   const isMobileViewport = () => {
     if (typeof window === 'undefined') {
@@ -611,6 +614,7 @@ const GLBViewer = forwardRef(({
 
       viewerRef.current = {
         camera: camera,
+        renderer: renderer,
         setColorVisibility: (colorLabel, visible) => {
           if (colorFilterData[colorLabel]) {
             colorFilterData[colorLabel].enabled = visible;
@@ -711,21 +715,51 @@ const GLBViewer = forwardRef(({
       if (!container) return;
       
       const width = container.clientWidth;
-      const height = container.clientHeight;
+      const height = Math.max(container.clientHeight, 1);
       const aspect = width / height;
-      
+
       const responsiveZoom = calculateResponsiveZoom(zoomValue, width);
-      
+
       camera.left = -responsiveZoom * aspect / 2;
       camera.right = responsiveZoom * aspect / 2;
       camera.top = responsiveZoom / 2;
       camera.bottom = -responsiveZoom / 2;
       camera.updateProjectionMatrix();
+
+      if (viewerRef.current.renderer) {
+        viewerRef.current.renderer.setSize(width, height);
+      }
     }
-  }, [zoomValue]);
+  }, [zoomValue, viewerHeight]);
+
+  useEffect(() => {
+    if (!useMobileHeightVariable) {
+      setViewerHeight(height);
+      return;
+    }
+
+    const updateViewerHeight = () => {
+      if (isMobileViewport()) {
+        setViewerHeight(MOBILE_PRIMARY_VIEWER_HEIGHT || height);
+      } else {
+        setViewerHeight(height);
+      }
+    };
+
+    updateViewerHeight();
+
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    window.addEventListener('resize', updateViewerHeight);
+    return () => {
+      window.removeEventListener('resize', updateViewerHeight);
+    };
+  }, [height, useMobileHeightVariable]);
 
   return (
-    <div className={styles.container} style={{ height, position: 'relative' }}>
+    <div className={styles.container} style={{ height: viewerHeight, position: 'relative' }}>
       <div ref={mountRef} className={styles.canvasContainer} />
       
       {isLoading && (
