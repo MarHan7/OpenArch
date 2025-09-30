@@ -11,13 +11,14 @@ import Contact from "./components/Contact/contact";
 import { useRef } from "react";
 function App() {
 
+  const leftSectionRef = useRef(null);
   const rightSectionRef = useRef(null);
 
   return (
     <BrowserRouter>
       <Header />
       <div className={styles.container}>
-        <div className={`${styles.section} ${styles.leftSection}`}>
+        <div className={`${styles.section} ${styles.leftSection}`} ref={leftSectionRef}>
           <FullViewer />
         </div>
         <div className={styles.mobileNavbarContainer}>
@@ -35,6 +36,7 @@ function App() {
                   view='projectList'
                   rightSection
                   rightSectionRef={rightSectionRef}
+                  pairedSectionRef={leftSectionRef}
                 />
               }
             />
