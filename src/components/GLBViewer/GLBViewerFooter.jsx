@@ -116,8 +116,14 @@ const GLBViewerFooter = ({ materialsData = {}, footPrintData = {} }) => {
     );
   };
 
+  const footerClassName = [
+    styles.footer,
+    isExpanded ? styles.expanded : styles.collapsed,
+    isMobile ? styles.mobile : styles.desktop
+  ].join(' ');
+
   return (
-    <div className={styles.footer}>
+    <div className={footerClassName}>
       {isMobile && (
         <button
           type="button"

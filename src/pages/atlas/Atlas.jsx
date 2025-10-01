@@ -410,7 +410,7 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef, paired
             {selectedCollection && (
               <CollectionBook collectionName={selectedCollection} />
             )}
-            <ProjectList 
+            <ProjectList
               projects={filteredProjects}
               onProjectSelect={handleSelectProject}
               selectedProject={selectedProject}
@@ -418,22 +418,28 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef, paired
           </>
 
           ) : (
-            <GLBViewer
-              ref={viewer1Ref}
-              modelPath={selectedModel?.path}
-              zoomValue={selectedModel.zoomValue}
-              useMobileHeightVariable
-              onColorDataChange={(colorData) =>
-                setViewer1Data(prev => ({ ...prev, colorData }))
-              }
-              onModelLoad={(data) =>
-                setViewer1Data(prev => ({
-                  ...prev,
-                  boundingBox: data.boundingBox,
-                  colorData: data.colorData
-                }))
-              }
-            />
+            <div className={style.viewerAndFooter}>
+              <GLBViewer
+                ref={viewer1Ref}
+                modelPath={selectedModel?.path}
+                zoomValue={selectedModel.zoomValue}
+                useMobileHeightVariable
+                onColorDataChange={(colorData) =>
+                  setViewer1Data(prev => ({ ...prev, colorData }))
+                }
+                onModelLoad={(data) =>
+                  setViewer1Data(prev => ({
+                    ...prev,
+                    boundingBox: data.boundingBox,
+                    colorData: data.colorData
+                  }))
+                }
+              />
+              <GLBViewerFooter
+                materialsData={selectedProject?.materialsData}
+                footPrintData={selectedProject?.footPrintData}
+              />
+            </div>
           )}
         </div>
       </div>
@@ -458,14 +464,6 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef, paired
           >
             →
           </button>
-        </div>
-      )}
-      {currentView === 'viewer' && (
-        <div className={style.sectionFooter}>
-          <GLBViewerFooter
-            materialsData={selectedProject?.materialsData}
-            footPrintData={selectedProject?.footPrintData}
-          />
         </div>
       )}
     </div>
