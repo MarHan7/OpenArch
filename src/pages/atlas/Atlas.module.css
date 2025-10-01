@@ -107,6 +107,14 @@
   will-change: transform;
 }
 
+.viewerAndFooter {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
 .paginationControls {
   display: none;
 }
