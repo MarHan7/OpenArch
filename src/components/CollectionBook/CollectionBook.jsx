@@ -28,6 +28,8 @@ function CollectionBook({ collectionName }) {
           {info.year && (<><dt>Year</dt><dd>{info.year}</dd></>)}
           {info.pages && (<><dt>Pages</dt><dd>{info.pages}</dd></>)}
           {info.isbn && (<><dt>ISBN</dt><dd>{info.isbn}</dd></>)}
+          {info.partners && (<><dt>Partners</dt><dd>{info.partners}</dd></>)}
+          {info.caseStudies && (<><dt>N° case studies</dt><dd>{info.caseStudies}</dd></>)}
           {info.link && (<><dt>Source</dt><dd><a href={info.link} target="_blank" rel="noreferrer">View book</a></dd></>)}
         </dl>
         {info.blurb && <p className={styles.blurb}>{info.blurb}</p>}

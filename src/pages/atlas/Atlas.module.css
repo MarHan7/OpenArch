@@ -92,6 +92,19 @@
   padding: 8px 12px;
 }
 
+.paginationArrow {
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
+.paginationArrowLeft {
+  transform: rotate(-90deg);
+}
+
+.paginationArrowRight {
+  transform: rotate(90deg);
+}
+
 .paginationButton:disabled {
   opacity: 0.3;
   cursor: not-allowed;

@@ -1,9 +1,9 @@
 .projectDisplay {
-  font-family: Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   max-height: 100vh;
   overflow-y: scroll;
   box-sizing: border-box;
-  text-align: justify;
+  text-align: left;
 }
 
 .container h2:first-of-type {

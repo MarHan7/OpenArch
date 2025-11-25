@@ -1,6 +1,6 @@
 /* GLBViewerFooter.module.css */
 .footer {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .mobileToggle {
@@ -117,7 +117,7 @@
 }
 
 .emptyState {
-  text-align: center;
+  text-align: left;
   font-style: italic;
   padding: 32px;
   background: white;

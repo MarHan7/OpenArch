@@ -1,7 +1,7 @@
 /* LifeCycleTable.module.css */
 
 .ritz {
-  font-family: Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .waffle a {
@@ -26,7 +26,7 @@
   background-color: white;
   border-bottom: 1px solid #dadce0;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
   padding: 8px 4px;
   font-size: 12px;
 }
@@ -35,7 +35,7 @@
   background-color: white;
   border-right: 1px solid #dadce0;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
   padding: 4px 8px;
   font-size: 12px;
 }
@@ -43,7 +43,7 @@
 .rowHeaderWrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100%;
 }
 
@@ -59,7 +59,7 @@
   background-color: #ffffff;
   text-align: left;
   color: #000000;
-  font-family: "Arial Narrow", Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 7pt;
   vertical-align: bottom;
   white-space: normal;
@@ -73,9 +73,9 @@
   border-bottom: 1px solid #000000;
   border-right: 1px solid #000000;
   background-color: #ffffff;
-  text-align: center;
+  text-align: left;
   color: #000000;
-  font-family: "Arial Narrow", Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 7pt;
   vertical-align: bottom;
   white-space: normal;
@@ -89,10 +89,10 @@
   border-bottom: 1px solid #000000;
   border-right: 1px solid #000000;
   background-color: #ffffff;
-  text-align: center;
+  text-align: left;
   font-weight: bold;
   color: #000000;
-  font-family: "Arial Narrow", Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 7pt;
   vertical-align: bottom;
   white-space: normal;
@@ -108,7 +108,7 @@
   background-color: #ffffff;
   text-align: left;
   color: #000000;
-  font-family: "Arial Narrow", Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 8pt;
   vertical-align: bottom;
   white-space: normal;
@@ -124,7 +124,7 @@
   text-align: left;
   font-weight: bold;
   color: #ffffff;
-  font-family: "Arial Narrow", Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 7pt;
   vertical-align: bottom;
   white-space: normal;
@@ -139,7 +139,7 @@
   background-color: #ffffff;
   text-align: left;
   color: #000000;
-  font-family: Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 10pt;
   vertical-align: top;
   white-space: normal;
@@ -155,7 +155,7 @@
   background-color: #ffffff;
   text-align: left;
   color: #000000;
-  font-family: Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 10pt;
   vertical-align: top;
   white-space: normal;
@@ -172,7 +172,7 @@
   text-align: left;
   font-weight: bold;
   color: #ffffff;
-  font-family: "Arial Narrow", Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 7pt;
   vertical-align: bottom;
   white-space: normal;
@@ -185,9 +185,9 @@
 .s8 {
   border-bottom: 1px solid #000000;
   background-color: #ffffff;
-  text-align: center;
+  text-align: left;
   color: #000000;
-  font-family: "Arial Narrow", Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 7pt;
   vertical-align: bottom;
   white-space: normal;
@@ -202,7 +202,7 @@
   background-color: #ffffff;
   text-align: left;
   color: #000000;
-  font-family: Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 10pt;
   vertical-align: bottom;
   white-space: normal;
@@ -218,7 +218,7 @@
   background-color: #ffffff;
   text-align: left;
   color: #000000;
-  font-family: Arial, sans-serif;
+  font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 10pt;
   vertical-align: bottom;
   white-space: normal;

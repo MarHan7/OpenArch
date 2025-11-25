@@ -4,14 +4,11 @@ import styles from './ProjectList.module.css';
 function ProjectList({ projects, onProjectSelect, selectedProject }) {
   const [sortField, setSortField] = useState('');
   const [sortDirection, setSortDirection] = useState('asc');
-  const [expandedProjectIds, setExpandedProjectIds] = useState([]);
 
   const handleSort = (field) => {
     if (sortField === field) {
-      // If clicking the same field, toggle direction
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
-      // If clicking a new field, set it and default to ascending
       setSortField(field);
       setSortDirection('asc');
     }
@@ -60,10 +57,8 @@ function ProjectList({ projects, onProjectSelect, selectedProject }) {
       }
 
       if (['year', 'm2', 'kgPerM2', 'kgCO2PerM2'].includes(sortField)) {
-        // Numeric comparison
         return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
       } else {
-        // String comparison
         if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
         if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
         return 0;
@@ -74,22 +69,10 @@ function ProjectList({ projects, onProjectSelect, selectedProject }) {
   const hasModels = (project) => {
     return project.models && project.models.length > 0;
   };
-  
+
   const getSortIcon = (field) => {
     if (sortField !== field) return null;
     return sortDirection === 'asc' ? '▲' : '▼';
-  };
-
-  const isProjectExpanded = (projectId) => expandedProjectIds.includes(projectId);
-
-  const toggleProjectExpansion = (event, projectId) => {
-    event.stopPropagation();
-    setExpandedProjectIds((prevExpanded) => {
-      if (prevExpanded.includes(projectId)) {
-        return prevExpanded.filter((id) => id !== projectId);
-      }
-      return [...prevExpanded, projectId];
-    });
   };
 
   if (projects.length === 0) {
@@ -154,88 +137,48 @@ function ProjectList({ projects, onProjectSelect, selectedProject }) {
         >
           kg.eq.CO2/m² {getSortIcon('kgCO2PerM2')}
         </div>
-        <div className={`${styles.headerCell} ${styles.expandToggle}`} aria-hidden>
-          &nbsp;
-        </div>
       </div>
 
       {/* Project List */}
       <div className={styles.projectList}>
-        {sortedProjects.map((project, index) => {
-          const detailId = `project-${project.id}-details`;
-          const expanded = isProjectExpanded(project.id);
-
-          return (
-            <React.Fragment key={project.id}>
-              <div
-                className={[
-                  styles.projectItem,
-                  selectedProject?.id === project.id && styles.selected,
-                  hasModels(project) && styles.hasModels
-                ].filter(Boolean).join(' ')}
-                onClick={() => hasModels(project) && onProjectSelect(project)}
-              >
-                <div className={styles.projectCell}>
-                  <span className={styles.year}>{project.year}</span>
-                </div>
-                <div className={styles.projectCell}>
-                  <span className={styles.constructor}>{project.constructor}</span>
-                </div>
-                <div className={styles.projectCell}>
-                  <span className={styles.projectName}>{project.name}</span>
-                </div>
-                <div className={styles.projectCell}>
-                  <span className={styles.location}>{project.location}</span>
-                </div>
-                <div className={`${styles.projectCell} ${styles.categoryColumn}`}>
-                  <span className={styles.category}>{project.category}</span>
-                </div>
-                <div className={`${styles.projectCell} ${styles.metricColumn}`}>
-                  <span className={styles.m2}>{project.footPrintMeaseure?.m2 || '-'}</span>
-                </div>
-                <div className={`${styles.projectCell} ${styles.metricColumn}`}>
-                  <span className={styles.kgPerM2}>{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
-                </div>
-                <div className={`${styles.projectCell} ${styles.kgCO2Column}`}>
-                  <span className={styles.kgCO2PerM2}>{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
-                </div>
-                <div className={`${styles.projectCell} ${styles.expandToggle}`}>
-                  <button
-                    type="button"
-                    className={styles.expandButton}
-                    onClick={(event) => toggleProjectExpansion(event, project.id)}
-                    aria-label={expanded ? 'Collapse project details' : 'Expand project details'}
-                    aria-expanded={expanded}
-                    aria-controls={detailId}
-                  >
-                    {expanded ? '▲' : '▼'}
-                  </button>
-                </div>
+        {sortedProjects.map((project, index) => (
+          <React.Fragment key={project.id}>
+            <div
+              className={[
+                styles.projectItem,
+                selectedProject?.id === project.id && styles.selected,
+                hasModels(project) && styles.hasModels
+              ].filter(Boolean).join(' ')}
+              onClick={() => hasModels(project) && onProjectSelect(project)}
+            >
+              <div className={styles.projectCell}>
+                <span className={styles.year}>{project.year}</span>
               </div>
-              {expanded && (
-                <div className={styles.mobileDetails} id={detailId}>
-                  <div className={styles.mobileDetailRow}>
-                    <span className={styles.mobileDetailLabel}>Category</span>
-                    <span className={styles.mobileDetailValue}>{project.category || '-'}</span>
-                  </div>
-                  <div className={styles.mobileDetailRow}>
-                    <span className={styles.mobileDetailLabel}>m²</span>
-                    <span className={styles.mobileDetailValue}>{project.footPrintMeaseure?.m2 || '-'}</span>
-                  </div>
-                  <div className={styles.mobileDetailRow}>
-                    <span className={styles.mobileDetailLabel}>kg/m²</span>
-                    <span className={styles.mobileDetailValue}>{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
-                  </div>
-                  <div className={styles.mobileDetailRow}>
-                    <span className={styles.mobileDetailLabel}>kg.eq.CO2/m²</span>
-                    <span className={styles.mobileDetailValue}>{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
-                  </div>
-                </div>
-              )}
-              {index < sortedProjects.length - 1 && <hr className={styles.separator} />}
-            </React.Fragment>
-          );
-        })}
+              <div className={styles.projectCell}>
+                <span className={styles.constructor}>{project.constructor}</span>
+              </div>
+              <div className={styles.projectCell}>
+                <span className={styles.projectName}>{project.name}</span>
+              </div>
+              <div className={styles.projectCell}>
+                <span className={styles.location}>{project.location}</span>
+              </div>
+              <div className={`${styles.projectCell} ${styles.categoryColumn}`}>
+                <span className={styles.category}>{project.category}</span>
+              </div>
+              <div className={`${styles.projectCell} ${styles.metricColumn}`}>
+                <span className={styles.m2}>{project.footPrintMeaseure?.m2 || '-'}</span>
+              </div>
+              <div className={`${styles.projectCell} ${styles.metricColumn}`}>
+                <span className={styles.kgPerM2}>{project.footPrintMeaseure?.kgPerM2 || '-'}</span>
+              </div>
+              <div className={`${styles.projectCell} ${styles.kgCO2Column}`}>
+                <span className={styles.kgCO2PerM2}>{project.footPrintMeaseure?.kgCO2PerM2 || '-'}</span>
+              </div>
+            </div>
+            {index < sortedProjects.length - 1 && <hr className={styles.separator} />}
+          </React.Fragment>
+        ))}
       </div>
     </div>
   );

@@ -254,7 +254,7 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
             disabled={currentPage === 0}
             aria-label="Previous page"
           >
-            ←
+            <span className={`${style.paginationArrow} ${style.paginationArrowLeft}`} aria-hidden="true">▲</span>
           </button>
           <div className={style.paginationIndicator}>
             {currentPage + 1} / {totalPages}
@@ -265,7 +265,7 @@ function FullViewer({ view='viewer', rightSection=false, rightSectionRef }) {
             disabled={currentPage === totalPages - 1}
             aria-label="Next page"
           >
-            →
+            <span className={`${style.paginationArrow} ${style.paginationArrowRight}`} aria-hidden="true">▲</span>
           </button>
         </div>
       )}
