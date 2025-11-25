@@ -45,6 +45,8 @@
 .spacerArrow {
   font-size: 1.25rem;
   line-height: 1;
+  display: inline-block;
+  transform: rotate(180deg);
 }
 
 @media (max-width: 992px) {
@@ -60,35 +62,40 @@
     margin-bottom: 0;
     flex: none;
     height: calc(100vh - var(--header-height));
+    order: 3;
   }
 
   .leftSection {
     border-right: none;
     border-bottom: 1px solid black;
     padding-right: 0;
+    order: 3;
   }
 
   .rightSection {
     padding-left: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    order: 2;
   }
 
   .mobileNavbarContainer {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
     border-bottom: 1px solid black;
     padding: 12px 0;
+    order: 0;
   }
 
   .mobileSectionSpacer {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
     padding: 4px 0 12px;
     color: black;
+    order: 1;
   }
 
   .spacerArrow {
@@ -97,7 +104,7 @@
 
   .mobileNavbar {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 10px 16px;
     padding: 0;
